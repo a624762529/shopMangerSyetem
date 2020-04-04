@@ -1,0 +1,24 @@
+#include "heartalarm.h"
+
+HeartAlarm::HeartAlarm()
+{
+
+}
+
+
+HeartAlarm::HeartAlarm()
+{}
+
+void HeartAlarm::PushNode(HeartNode node)
+{
+}
+
+vector<int> HeartAlarm::move()
+{
+    vector<int> vec;
+    m_alarmSlot
+    for(int i=0;i<4;i++)
+    {
+
+    }
+}

@@ -1,0 +1,120 @@
+#include "explainsql.h"
+
+ExplainSql_::ExplainSql_():m_db("./info.db")
+{
+
+}
+
+pair<string,bool> ExplainSql_::chargeStore(char *msg)
+{
+    ChargeStore *cgs=reinterpret_cast<ChargeStore*>(msg);
+    switch (cgs->m_type) {
+    case ChargeStore::findAll:
+        break;
+
+    case ChargeStore::deleteStore:
+        break;
+
+    case ChargeStore::addStore:
+        break;
+    default:
+        break;
+    }
+    //管理仓库
+}
+
+pair<string,bool> ExplainSql_::explain(char *msg,int len)
+{
+    SendPackImpl *type=reinterpret_cast<SendPackImpl *>(msg);
+    switch (type->m_send_type)
+    {
+    case SendPackImpl::salItem:
+    {
+
+        //商品的销售
+        SalItem *item=reinterpret_cast<SalItem*>(msg);
+        bool ret=m_db.doSql(item->explain());
+        return pair<string,bool>("",ret);
+        break;
+    }
+    case SendPackImpl::addgoods:
+    {
+        //添加商品
+        AddGoods *add=reinterpret_cast<AddGoods*>(msg);
+        //cout<<add->explain()<<endl;
+
+        bool ret=m_db.doSql(add->explain());
+        return pair<string,bool>("",ret);
+        break;
+    }
+    case SendPackImpl::changegoods:
+    {
+        //改变商品
+        ChangeGoods *chg=reinterpret_cast<ChangeGoods*>(msg);
+        cout<<chg->explain()<<endl;
+        bool ret=m_db.doSql(chg->explain());
+        return pair<string,bool>("",ret);
+        break;
+    }
+    case SendPackImpl::charge_store:
+    {
+        auto ret= chargeStore(msg);
+    }
+    case SendPackImpl::replenish:
+    {
+        //删除商品
+        Replenish *rep=reinterpret_cast<Replenish*>(msg);
+        auto ret=rep->explain();
+        //cout<<del->explain()<<endl;
+        //bool ret=m_db.doSql(del->explain());
+        return pair<string,bool>("",true);
+        break;
+    }
+    case SendPackImpl::clsgoods:
+        //分类统计商品
+        break;
+
+    case SendPackImpl::deletegoods:
+
+    {
+        //删除商品
+        DeleteGoods *del=reinterpret_cast<DeleteGoods*>(msg);
+        cout<<del->explain()<<endl;
+        bool ret=m_db.doSql(del->explain());
+        return pair<string,bool>("",ret);
+        break;
+    }
+    case SendPackImpl::find:
+
+    {//查找商品
+        Find *fd=reinterpret_cast<Find*>(msg);
+        cout<<fd->explain();
+        auto ret=m_db.selectDB(fd->explain(),4);
+        return ret;
+        break;
+    }
+    case SendPackImpl::Load:
+
+    {
+        Load *log=reinterpret_cast<Load*>(msg);
+        cout<<log->explain()<<endl;
+
+        bool ret=m_db.selectDB(log->explain());
+        return pair<string,bool>("",ret);
+        break;
+    }
+
+    case SendPackImpl::Login:
+
+    {
+        //注册
+        //解释sql 执行sql语句
+        Login *log=reinterpret_cast<Login*>(msg);
+        bool ret=m_db.doSql(log->explain());
+        return pair<string,bool>("",ret);
+        break;
+    }
+
+    }
+    return pair<string,bool>("",false);
+}
