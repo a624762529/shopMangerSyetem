@@ -11,7 +11,7 @@
 #include"service.h"
 #include<QSqlQueryModel>
 #include<string>
-#pragma once
+
 using namespace std;
 class ShopActSql
 {
@@ -22,21 +22,22 @@ public:
     void operator ==(const ShopActSql&)=delete;
     bool doSql(string sql_lag);   //增 删 改 建表
     bool selectDB(string sql_lag);//查接口
+
     SendBack* selectDB(string sql_lag,int arg);
     vector<string> readType();
     vector<string> readStore();
     void sendBackType();
     void sendBackStore();
     QString Transform(QString info);
+    pair<int,int> getVal(QString sql);
 public:
- 
     SendBack* searchItem  (string sql_lag,int arg);
     SendBack* getAllStore (string sql_lag,int arg);
     SendBack* clsGoods    (string sql_lag,int arg);
     SendBack* soldCensus  (string sql_lag,int arg);
     SendBack* earlyWarning(string sql_lag,int arg);
 public:
-    int getLen(string sql);
+    int       getLen      (string sql);
 public:
     std::string  m_dbname;//sql名字
     QSqlDatabase m_db_act; //数据库操作

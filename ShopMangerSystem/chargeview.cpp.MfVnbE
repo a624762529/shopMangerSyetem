@@ -75,14 +75,8 @@ void ChargeView::on_salButton_clicked()
                       ,goods_qua,goods_store,"");
 
         SalItem item(good);
-        //使用阻塞式的写入操作
         client->writeInfo(reinterpret_cast<char*>(&item),sizeof(item));
 
-        /////////////////
-        //        char buf[102];
-        //        SendBack *back=reinterpret_cast<SendBack*>(buf);
-        //        this->stableReadHead(back);
-        /////////////////
         char buf[64*1024];
         int ret=client->readInfo(buf,64*4096);
         if(ret==-1)
@@ -92,9 +86,7 @@ void ChargeView::on_salButton_clicked()
         SendBack *back=reinterpret_cast<SendBack*>(buf);
         if(back->m_tag)
         {
-            //char *info=this->stableReadInfo(4);
-            //int leftover=*(int *)(info) - goods_qua;
-            int leftover=*(int *)(&back->m_ch) - goods_qua;
+            int leftover=*(int *)&(back->m_ch)-goods_qua;
             if(leftover>40)
             {
                 QMessageBox::question(NULL, "sail success", "交易成功",
@@ -106,16 +98,12 @@ void ChargeView::on_salButton_clicked()
                 QMessageBox::question(NULL,"WARNING",info,
                                       QMessageBox::Yes , QMessageBox::Yes);
             }
-            //free(info);
-            return;
         }
         else
         {
-
             QMessageBox::question(NULL, "sail fail", "交易失败",
                                   QMessageBox::Yes , QMessageBox::Yes);
         }
-
     }
 }
 
@@ -612,32 +600,7 @@ void ChargeView::on_buttonClassSalar_2_clicked()
     sw.setStore(store);
     client->writeInfo(reinterpret_cast<char*>(&sw),sizeof(sw));
 
-////////////////
-//    SendBack backv;
-//    this->stableReadHead(&backv);
-//    if(backv.m_tag)
-//    {
-//        //获取数据长度
-//        int info_len=back->m_len;
-//        auto ret=stableReadInfo(info_len,sizeof(Goods));
-
-//        Goods *good=reinterpret_cast<Goods*>(&ret.first);
-//        int line=backv->m_num;
-//        setModelLine(model_ShowAll,line);
-//        for(int i=0;i<line;i++)
-//        {
-//            setModelGoods(model_ShowAll,good,i);
-//            good++;
-//        }
-//    }
-//    else
-//    {
-//        QMessageBox::information(NULL, "find fail", "仓库不存在|没有数据",
-//                                 QMessageBox::Yes | QMessageBox::No,
-//                                 QMessageBox::Yes);
-//    }
-////////////////
-    char buf[64*4096];
+    char buf[4096];
     int ret=client->readInfo(buf,64*4096);
     if(ret==-1)
     {
@@ -718,25 +681,39 @@ void ChargeView::on_pushButton_4_clicked()
 }
 
 
-void ChargeView::stableReadHead(SendBack *back)
+pair<char*,int> ChargeView::readExp(int per_size)
 {
-    if(back==nullptr)
-    {
-        perror("arg error");
-        throw bad_alloc();
-        return;
-    }
-    else
-    {
-        client->stableRecv
-                (reinterpret_cast<char*>(back),sizeof(SendBack)-1);
-    }
-}
+    int alloc_size=0;
+    SendBack info;
+    //获取到头部信息
+    int head_len=info.m_len-sizeof(SendBack)-1;
+    client->stableRecv(reinterpret_cast<char*>(&info),head_len);
 
-char* ChargeView::stableReadInfo(int back_len)
-{
-    char *info_buf=reinterpret_cast<char*>(malloc(back_len));
-    //读取错误  吐出异常  程序直接挂掉
-    client->stableRecv(info_buf,back_len);
-    return info_buf;
+    //
+    int max_get=200*sizeof(per_size);
+    //获取到数据的长度
+    int info_all_len=info.m_len-num;
+    //确定要申请多少内容 容纳数据
+    alloc_size=info_all_len>max_get?max_get:info_all_len;
+
+    char *buf=new buf[info_all_len];
+    //第二次 读取数据  按照64k的协议的极限读取
+    char *buf=new char[1024*32];
+    int max_num=sizeof(buf)/sizeof(Goods);
+
+    int have_read=0;
+    int ret=client->stableRecv(buf,sizeof(Goods)*max_num );
+    have_read+=ret;
+
+    if(back->m_tag)
+    {
+        Goods *good=reinterpret_cast<Goods*>(buf);
+        int line=back->m_num;
+        setModelLine(model_ShowAll,line);
+        for(int i=0;i<line;i++)
+        {
+            setModelGoods(model_ShowAll,good,i);
+            good++;
+        }
+    }
 }

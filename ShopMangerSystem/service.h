@@ -84,6 +84,7 @@ public:
 public:
     char m_store[20]{0};
 };
+
 class SalItem:public SendPackImpl
 {
 public:
@@ -91,7 +92,6 @@ public:
         :SendPackImpl(SendPackImpl::salItem)
     {
         memset(&m_sal,0,sizeof(m_sal));
-
         memcpy(&m_sal,&from,sizeof(Goods));
         m_info_len=sizeof(SalItem);
     }
@@ -151,6 +151,7 @@ public:
     ChargeStore():SendPackImpl
                   (SendPackImpl::charge_store)
     {
+        m_info_len=sizeof(ChargeStore);
     }
 public:
      //Goods m_to;
@@ -181,6 +182,7 @@ public:
     DeleteStore()
     {
         m_type=Type::deleteStore;
+        m_info_len=sizeof(DeleteStore);
     }
     void setStore(string store_)
     {
@@ -197,6 +199,7 @@ public:
     FindAll()
     {
         m_type=Type::findAll;
+        m_info_len=sizeof(FindAll);
     }
 };
 
@@ -270,7 +273,7 @@ public:
     ClsGoods():
         SendPackImpl(SendPackImpl::clsgoods)
     {
-        m_info_len=sizeof(ChangeGoods);
+        m_info_len=sizeof(ClsGoods);
     }
     void setStore(string store_)
     {
@@ -347,7 +350,6 @@ public:
     EarlyWarning():
         SendPackImpl(SendPackImpl::earlyWarn)
     {
-
         m_info_len=sizeof(EarlyWarning);
     }
 

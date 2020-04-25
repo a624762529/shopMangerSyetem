@@ -11,24 +11,71 @@
 #include"heartalarm.h"
 
 using namespace std;
-#define PERALARM 20
+#define PERALARM 400
 struct SockArry
 {
 public:
     SockArry(){}
+
     SockArry(SendBack *back,int send_len)
     {
-        m_back=back;
+        m_back    =back;
         m_send_len=send_len;
     }
+
     void setInfo(SendBack *back,int send_len)
     {
         m_back=back;
         m_send_len=send_len;
     }
+
+    struct recvBuf
+    {
+    public:
+        char      m_getfromfd[1024]{0};
+        int       m_getlen=0;
+        int       m_alllen=0;
+        bool      m_issetlen=false;
+    public:
+        void addInfo(char *buf,int len,int all_len)
+        {
+            memcpy(&m_getfromfd[m_getlen],buf,len);
+            m_getlen+=len;
+            if(m_issetlen==false)
+            {
+                m_issetlen=true;
+                m_alllen=all_len;
+            }
+        }
+
+        bool jude_readOver()
+        {
+            return m_alllen==m_getlen;
+        }
+
+        void clear()
+        {
+            memset(m_getfromfd,0,sizeof(m_getfromfd));
+            m_getlen=0;
+            m_alllen=0;
+            m_issetlen=false;
+        }
+
+        char* getInfo()
+        {
+            pair<char*,int> ret;
+            char *info=(char*)malloc(m_alllen);
+            memcpy(info,m_getfromfd,m_getlen);
+            return info;
+        }
+    };
+
 public:
     SendBack *m_back=nullptr;
     int       m_send_len=0;
+    int       m_have_sendlen=0;
+
+    recvBuf   m_buf;
 };
 
 class Select

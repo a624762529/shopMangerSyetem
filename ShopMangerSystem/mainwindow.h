@@ -6,6 +6,10 @@
 #include"chargeview.h"
 #include<memory>
 #include"logon.h"
+#include"head.h"
+#include<signal.h>
+#include<sys/signal.h>
+using namespace std;
 namespace Ui {
 class MainWindow;
 }

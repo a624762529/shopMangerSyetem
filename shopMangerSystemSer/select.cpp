@@ -6,7 +6,6 @@ int Select::createSock(int port)
 {
     struct sockaddr_in serv_addr;
     socklen_t serv_len = sizeof(serv_addr);
-
     // 创建套接字
     lfd = socket(AF_INET, SOCK_STREAM, 0);
     // 初始化服务器 sockaddr_in
@@ -33,10 +32,10 @@ void Select::startSpy()
 
 void Select::spy()
 {
-     signal(SIGPIPE,SIG_IGN);
+    signal(SIGPIPE,SIG_IGN);
     while (true)
     {
-        cout<<"并发连接数目:"<<mp.size()<<" :"<<mp_heart.size() <<endl;
+       // cout<<"并发连接数目:"<<mp.size()<<" :"<<mp_heart.size() <<endl;
         sleep(4);
     }
 }
@@ -66,8 +65,12 @@ void Select::loop()
             if(cfd==-1)
             {
                 perror("accept err::");
+
             }
-            maxfd = maxfd < cfd ? cfd : maxfd;
+            else
+            {
+                maxfd = maxfd < cfd ? cfd : maxfd;
+            }
         }
 
         if(FD_ISSET(m_alarm.getReadFd(), &t_read))
@@ -111,7 +114,8 @@ int Select::acceptCallBack()
     }
     char ip[64];
     printf("new client IP: %s, Port: %d\n",
-           inet_ntop(AF_INET, &client_addr.sin_addr.s_addr, ip, sizeof(ip)),
+           inet_ntop(AF_INET, &client_addr.sin_addr.s_addr,
+                     ip, sizeof(ip)),
            ntohs(client_addr.sin_port));
     // 将cfd加入到待检测的读集合中 - 下一次就可以检测到了
     FD_SET(cfd, &m_read);
@@ -136,7 +140,8 @@ void Select::writeCallBack(int cfd)
     }
     else
     {
-        doWrite( it->second.m_back,cfd);
+
+        doWrite(it->second.m_back,cfd);
     }
 
 }
@@ -169,17 +174,28 @@ void Select::readCallBack(int cfd)
     else
     {
         //解析
-        auto ret=m_expl.explain(buf,len);
-        //将ret存放到socketbuf中
+        SendPackImpl *type=reinterpret_cast<SendPackImpl *>(buf);
+        int getAllLen=type->m_info_len;
         map<int,SockArry>::iterator it=mp.find(cfd);
         if(it==mp.end())
         {
             perror("error map中没有对应的内容");
             return;
         }
-        it->second=SockArry(ret,0);
-        changeFdWrite(cfd);
-        //doWrite(ret,cfd);
+        it->second.m_buf.addInfo(buf,len,getAllLen);
+
+        if(it->second.m_buf.jude_readOver())
+        {
+            char *get_ready_read=it->second.m_buf.getInfo();
+            auto ret=m_expl.explain(get_ready_read,len);
+            //将ret存放到socketbuf中
+            it->second=SockArry(ret,0);
+            changeFdWrite(cfd);
+            it->second.m_buf.clear();
+            free(get_ready_read);
+        }
+
+
     }
 }
 
@@ -254,15 +270,16 @@ void Select::doWrite
     }
     int len=send_back->m_len;          //获取sendback的总长度
     auto it=mp.find(cfd);              //寻找cfd对应的信息包
+    if(it==mp.end())
+    {
+        return;
+    }
     int  have_write=it->second.m_send_len;
     char *send_info=reinterpret_cast<char*>(send_back)+have_write;
     int ret=write(cfd,send_info,len-have_write);  //将sendback写入到cfd对应的文件描述符中
     if(ret>0)
     {
-        if(it!=mp.end())
-        {
-            it->second.m_send_len+=ret;
-        }
+        it->second.m_send_len+=ret;
         //信息的总长度等于 已经发送的信息的总长度
         if(it->second.m_send_len==it->second.m_back->m_len)
         {

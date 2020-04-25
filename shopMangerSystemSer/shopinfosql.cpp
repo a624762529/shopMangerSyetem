@@ -123,12 +123,33 @@ void ShopActSql::sendBackType()
 void ShopActSql::sendBackStore()
 {}
 
+pair<int,int> ShopActSql::getVal(QString sql)
+{
+    pair<int,int> ret_back;
+    ret_back.first=-1;
+    ret_back.second=-1;
+    QSqlQuery query;
+    if(query.exec(sql))
+    {
+        while(query.next())
+        {
+            ret_back.first =query.value(0).
+                    toString().toInt();
+            ret_back.second=query.value(1).
+                    toString().toInt();
+            return ret_back;
+        }
+    }
+    return ret_back;
+}
+
 //查找对应的物品
 SendBack* ShopActSql::searchItem(string sql_lag,int arg)
 { 
     SendBack* ret_type=nullptr;
     int allSize=sizeof(SendBack)+1*sizeof(Goods);
     ret_type=reinterpret_cast<SendBack*>(malloc(allSize));
+    memset(ret_type,0,allSize);
     ret_type->m_len=allSize;
     ret_type->m_num=1;
     Goods *goods=reinterpret_cast<Goods *>(&ret_type->m_ch);
@@ -158,8 +179,8 @@ SendBack* ShopActSql::getAllStore(string sql_lag,int arg)
     SendBack* ret_type=reinterpret_cast<SendBack*>(malloc(allSize));
     memset(ret_type,0,allSize);
 
-    ret_type->m_len=allSize;
-    ret_type->m_num=all_line;
+    ret_type->m_len=allSize;     //数据长度
+    ret_type->m_num=all_line;    //数据行数
 
     Store *stor=reinterpret_cast<Store *>(&ret_type->m_ch);
     QSqlQuery query;

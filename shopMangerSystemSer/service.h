@@ -94,7 +94,7 @@ public:
         memcmp(&m_sal,&from,sizeof(Goods));
         m_info_len=sizeof(SalItem);
     }
-    pair<string,string> explain()
+    pair<string,string> explain(int price)
     {
         QString changeValue=QString(
                     "UPDATE %1 set item_qua=item_qua-%2"
@@ -109,12 +109,18 @@ public:
                                        "time,price,qua)"
                                        "values('%1','%2','%3','%4','%5')")
                                 .arg(m_sal.m_store,m_sal.m_name,now_time,
-                                     QString::number(m_sal.m_price),
+                                     QString::number(price),
                                      QString::number(m_sal.m_qua)
                                      );
         return pair<string,string>(changeValue.toStdString(),
                             insertSalTable.toStdString());
 
+    }
+    QString getVal()
+    {
+        QString sql_get=QString("select item_qua,item_price from %1 where item_name='%2'").
+                arg(m_sal.m_store,m_sal.m_name);
+        return sql_get;
     }
     string getLogInfo()
     {
@@ -434,11 +440,34 @@ public:
         m_delete=dele;
         m_info_len=sizeof(DeleteGoods);
     }
-    string explain()
+
+    QString getVal()
+    {
+        QString sqlget=QString("select item_price,item_qua from %1 where item_name='%2'")
+                       .arg(m_delete.m_store,m_delete.m_name);
+        return sqlget;
+    }
+
+    pair<string,string> explain(pair<int,int> val)
     {
         QString deletesql= QString("DELETE FROM %1 WHERE  item_name= '%2'")
                             .arg(m_delete.m_store,m_delete.m_name);
-        return deletesql.toStdString();
+        char now_time[20]{0};
+        gettime_now(now_time);
+        QString insertValue=QString("insert into DelTable(store,item_name,"
+                                    "time,price,qua)"
+                                    " values('%1','%2','%3','%4','%5')")
+                .arg(m_delete.m_store,
+                     m_delete.m_name,
+                     now_time,
+                     QString::number(val.first),
+                     QString::number(val.second)
+                     );
+
+        return pair<string,string>(
+                                    deletesql.toStdString(),
+                                    insertValue.toStdString()
+                                  );
     }
 
     string getLogInfo()

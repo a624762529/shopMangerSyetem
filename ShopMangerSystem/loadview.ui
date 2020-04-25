@@ -70,7 +70,11 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="lineEdit_count"/>
+     <widget class="QLineEdit" name="lineEdit_count">
+      <property name="text">
+       <string>123</string>
+      </property>
+     </widget>
     </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_2">
@@ -80,7 +84,11 @@
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit_password"/>
+     <widget class="QLineEdit" name="lineEdit_password">
+      <property name="text">
+       <string>123</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

@@ -17,9 +17,9 @@ Logon::~Logon()
 
 void Logon::on_pushButton_log_clicked()
 {
-    string count= ui->lineEdit_count->text().toStdString();
-    string password=ui->lineEdit_password->text().toStdString();
-    string rpassword=ui->lineEdit_rpassword->text().toStdString();
+    string count    = ui->lineEdit_count->text().toStdString();
+    string password = ui->lineEdit_password->text().toStdString();
+    string rpassword= ui->lineEdit_rpassword->text().toStdString();
 
     if(password!=rpassword)
     {

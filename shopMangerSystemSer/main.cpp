@@ -9,13 +9,13 @@
 #include <iterator>
 #include <algorithm>
 #include <iomanip>
+#include <QFileDevice>
 using namespace std;
 int main()
 {
     Select sel(8888);
     sel.loop();
     return 1;
-
 }
 
 
@@ -53,7 +53,7 @@ int main234qwwe56()
     return 1;
 }
 
-////建立商品表
+//建立商品表
 int m123456ain()
 {
 
@@ -131,7 +131,7 @@ int m123456ain()
     return 1;
 }
 
-////建立商品类型表
+//建立商品类型表
 int main23123()
 {
     ShopActSql mylit("./info.db");
@@ -253,8 +253,8 @@ int mai3245n()
 
 
 
-////建立销售表
-int main2134()
+//建立销售表
+int main2345()
 {
     ShopActSql mylit("./info.db");
     string createTable="create table SalTable(store     varchar(20) ,"
@@ -296,11 +296,11 @@ int main2134()
         cout<<"show error"<<endl;
     }
 
-    string drop_tab="drop table SalTable;";
-    if(!mylit.doSql(drop_tab))
-    {
-        cout<<"drop error"<<endl;
-    }
+//    string drop_tab="drop table SalTable;";
+//    if(!mylit.doSql(drop_tab))
+//    {
+//        cout<<"drop error"<<endl;
+//    }
 
 
     return 1;
@@ -308,4 +308,62 @@ int main2134()
 
 
 
+int main2334545()
+{
+    ShopActSql mylit("./info.db");
+    string createTable="create table DelTable(store     varchar(20) ,"
+                       "item_name varchar(20) ,"
+                       "time      varchar(20) ,"
+                       "price     int,"
+                       "qua       int)";
+    if(!mylit.doSql(createTable))
+    {
+        cout<<"create error"<<endl;
+    }
 
+    int pre=clock();
+    char time[20]{0};
+    gettime_now(time);
+    QString insertValue=QString("insert into DelTable(store,item_name,"
+                                "time,price,qua)"
+                                " values('%1','%2','%3','%4','%5')")
+            .arg("goodsItem",
+                 "刀子",
+                 time,
+                 QString::number(39),
+                 QString::number(20)
+                 );
+    if(!mylit.doSql(insertValue.toStdString()))
+    {
+        cout<<"insert error"<<endl;
+    }
+
+    {
+        string showtab="select * from DelTable ;";
+        if(!mylit.selectDB(showtab))
+        {
+            cout<<"show error"<<endl;
+        }
+
+    }
+
+    string showtab="select * from DelTable;";
+
+
+    //逐行取出
+    QSqlQuery query1;
+    query1.exec(showtab.c_str());
+    while(query1.next()) //一行一行遍历
+    {
+        //取出当前行的内容
+        qDebug()<<query1.value(0)<<" "<<query1.value(1)<<" "<<query1.value(2)<<" "<<query1.value(3);
+    }
+
+//    string drop_tab="drop table DelTable;";
+//    if(!mylit.doSql(drop_tab))
+//    {
+//        cout<<"drop error"<<endl;
+//    }
+
+    return 1;
+}

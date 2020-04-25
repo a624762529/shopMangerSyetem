@@ -32,7 +32,8 @@ SOURCES += \
     good.cpp \
     service.cpp \
     sendassis.cpp \
-    logon.cpp
+    logon.cpp \
+    file.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,7 +44,8 @@ HEADERS += \
     good.h \
     service.h \
     sendassis.h \
-    logon.h
+    logon.h \
+    file.h
 
 FORMS += \
         mainwindow.ui \

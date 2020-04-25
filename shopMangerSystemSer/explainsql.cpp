@@ -71,7 +71,6 @@ SendBack* ExplainSql_::explain(char *msg,int len)
     case SendPackImpl::showStoreAll:
     {
         ShowStoreAll *sho=reinterpret_cast<ShowStoreAll *>(msg);
-
         log.addinfo(sho->getLogInfo());
         return m_db.selectDB(sho->explain(),5);
         break;
@@ -80,17 +79,29 @@ SendBack* ExplainSql_::explain(char *msg,int len)
     {
         //商品的销售
         SendBack* ret1=getSendBack();
+
+
         SalItem *item=reinterpret_cast<SalItem*>(msg);
+        pair<int,int> retv=m_db.getVal(item->getVal());
+        if(retv.first<0)
+        {
+            return ret1;
+        }
+
+        item->m_sal.m_price=retv.second;
         log.addinfo(item->getLogInfo());
-        auto ret=item->explain();
-        log.addinfo(item->getLogInfo());
+
+        auto ret=item->explain(retv.second);
         if(m_db.doSql(ret.first))
         {
             if(m_db.doSql(ret.second))
             {
                 ret1->m_tag=true;
+                ret1->m_len+=3;
+                memcpy(&ret1->m_ch,&retv.first,4);
             }
         }
+
         return ret1;
         break;
     }
@@ -166,9 +177,17 @@ SendBack* ExplainSql_::explain(char *msg,int len)
         //删除商品
         DeleteGoods *del=reinterpret_cast<DeleteGoods*>(msg);
         log.addinfo(del->getLogInfo());
-        bool ret=m_db.doSql(del->explain());
         SendBack* ret_back=getSendBack();
-        ret_back->m_tag=ret;
+        pair<int,int> ret_find=m_db.getVal(del->getVal());
+        //item_price,item_qua
+        auto ret= del->explain(ret_find);
+        if(m_db.doSql(ret.first))
+        {
+            if(m_db.doSql(ret.second))
+            {
+                ret_back->m_tag=true;
+            }
+        }
         return ret_back;
         break;
     }
@@ -184,6 +203,7 @@ SendBack* ExplainSql_::explain(char *msg,int len)
     case SendPackImpl::Load:
     {
         Load *load=reinterpret_cast<Load*>(msg);
+
         SendBack* ret_back=getSendBack();
         log.addinfo(load->getLogInfo());
         bool ret=m_db.selectDB(load->explain());
@@ -220,11 +240,10 @@ SendBack* ExplainSql_::explain(char *msg,int len)
 
 SendBack* ExplainSql_::getSendBack()
 {
-    SendBack* back=reinterpret_cast<SendBack*>(malloc(sizeof(SendBack)));
+    SendBack* back=reinterpret_cast<SendBack*>(malloc(4+sizeof(SendBack)));
     back->m_len=sizeof(SendBack);
     back->m_num=0;
     back->m_tag=false;
-
     return back;
 }
 

@@ -45,28 +45,28 @@ class logpferI
 public:
     logpferI(string path);
     ~logpferI();
-    void addinfo(string info);
+    void    addinfo(string info);
 
 public:
     logpferI();
-    void setPath(string path);
-    void start();
+    void    setPath(string path);
+    void    start();
 public:
-    void setCanUsed();
-    void stop();
+    void    setCanUsed();
+    void    stop();
 private:
-    void   startConsumer();
-    int    getFileSize();
-    void   gettime(char *cur_time);
-    string compareFileName();
-    void   change_file();
+    void    startConsumer();
+    int     getFileSize();
+    void    gettime(char *cur_time);
+    string  compareFileName();
+    void    change_file();
 private:
-    void   initFile();
+    void    initFile();
 private:
     int    magic;
     mutex  file_mu;
-    Tube   tb;//线程之间通讯的手段
-    int    fd;//通讯文件描述符
+    Tube   tb;       //线程之间通讯的手段
+    int    fd;       //通讯文件描述符
     string file_name;//文件原始的名字
     string path;
     int    index;

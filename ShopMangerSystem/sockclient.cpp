@@ -12,7 +12,6 @@ SockClient::SockClient()
 {
     cfd=-1;
     memset(&addr,0,sizeof(addr));
-
     cfd = socket(AF_INET, SOCK_STREAM, 0);
     if(cfd==-1)
     {
@@ -104,7 +103,6 @@ int SockClient::connectToSer()
             }
         }
     }
-
     setsockopt(cfd,SOL_SOCKET,
                       SO_REUSEADDR|SO_REUSEPORT,
                       &opt,sizeof(int));
@@ -117,12 +115,14 @@ int SockClient::connectToSer()
 int SockClient::readInfo(char *buf,int len)
 {
     lock_guard<mutex> lock(mu);
+    sleep(0.1);
     int ret=read(cfd,buf,len);
     if(ret<0)
     {
         if(errno!=EAGAIN)
         {
-            cout<<"send error"<<endl;
+            perror("read error");
+            //cout<<"send error"<<endl;
             bad_alloc();
         }
     }
@@ -136,9 +136,25 @@ int SockClient::readInfo(char *buf,int len)
 
 int SockClient::writeInfo(char *buf, int len)
 {
-    lock_guard<mutex> lock(mu);
-    int ret=write(cfd,buf,len);
-    return ret;
+    //客户端给服务端发数据最多就那几个byte..就这样吧
+    while (true)
+    {
+        lock_guard<mutex> lock(mu);
+        int ret=send(cfd,buf,len,MSG_WAITALL);
+        if(ret==-1&&errno==EAGAIN)
+        {
+            continue;
+        }
+        else if(ret>0)
+        {
+            return ret;
+        }
+        else
+        {
+            perror("read error");
+            throw bad_alloc();
+        }
+    }
 }
 
 void SockClient::destory()
@@ -188,7 +204,7 @@ void SockClient::setProt(int prot)
 
 void SockClient::startAlarm()
 {
-
+    signal(SIGPIPE,SIG_IGN);
     while (m_starAlarm)
     {
         {
@@ -202,7 +218,7 @@ void SockClient::startAlarm()
 SockClient::~SockClient()
 {
     destory();
-    m_starAlarm=true;
+    m_starAlarm=false;
 }
 
 void SockClient::start()
@@ -214,3 +230,26 @@ void SockClient::start()
         th.detach();
     }
 }
+
+int  SockClient::stableRecv(char *buf,int len)
+{
+    //读取对应的长度
+    while (true)
+    {
+        lock_guard<mutex> lock(mu);
+        int ret=recv(cfd,buf,len,MSG_WAITALL);
+        if(ret==-1&&errno==EAGAIN)
+        {
+            continue;
+        }
+        else if(ret>0){
+            return ret;
+        }
+        else
+        {
+            perror("read err");
+            throw bad_alloc();
+        }
+    }
+}
+

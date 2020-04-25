@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("首页");//设置窗口名字
-
+    signal(SIGPIPE,SIG_IGN);
     while (true)
     {
         client =shared_ptr<SockClient>(new SockClient("127.0.0.1",8888));
