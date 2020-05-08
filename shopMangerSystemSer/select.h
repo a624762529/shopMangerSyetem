@@ -9,7 +9,9 @@
 #include<iostream>
 #include"explainsql.h"
 #include"heartalarm.h"
-
+#include <string.h>
+#include <stdio.h>
+#include <memory.h>
 using namespace std;
 #define PERALARM 400
 struct SockArry
@@ -41,11 +43,23 @@ public:
         {
             memcpy(&m_getfromfd[m_getlen],buf,len);
             m_getlen+=len;
+
+        }
+
+        void setAllLen()
+        {
             if(m_issetlen==false)
             {
+                SendPackImpl *type=reinterpret_cast<SendPackImpl *>(m_getfromfd);
                 m_issetlen=true;
-                m_alllen=all_len;
+                m_alllen=type->m_info_len;
             }
+        }
+
+        int getReadLen()
+        {
+            //讲获取的报文长度返回出去
+            return m_getlen;
         }
 
         bool jude_readOver()
@@ -69,12 +83,17 @@ public:
             return info;
         }
     };
-
+    ~SockArry()
+    {
+        m_back=nullptr;
+        m_send_len=0;
+        m_have_sendlen=0;
+        memset(&m_buf,0,sizeof(m_buf));
+    }
 public:
     SendBack *m_back=nullptr;
     int       m_send_len=0;
     int       m_have_sendlen=0;
-
     recvBuf   m_buf;
 };
 

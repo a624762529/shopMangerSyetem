@@ -6,6 +6,8 @@
 #include"service.h"
 #include<set>
 #include"shopinfosql.h"
+#include<map>
+#include<string>
 
 class ExplainSql_
 {
@@ -21,4 +23,10 @@ private:
     logpferI   log;
 };
 
+
+struct SalItemRetBack
+{
+    int  left_qua=0;
+    char arry[20]{0};
+};
 #endif // EXPLAINSQL_H

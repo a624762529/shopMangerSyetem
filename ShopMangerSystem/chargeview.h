@@ -29,6 +29,7 @@ public:
     ~ChargeView();
 public:
     void setSendSer(shared_ptr<SockClient> cli);
+    void solderLoad();
 private slots:
     void on_salButton_clicked();            //商品的销售
     void on_pushButton_deleteting_clicked();//删除商品
@@ -45,15 +46,11 @@ private slots:
     void on_buttonClassSalar_2_clicked();   //查询该仓库的全部商品
     void on_pushButton_3_clicked();
     void on_pushButton_4_clicked();
-
 private:
     void setTableViewHead();
 private:
     void  stableReadHead(SendBack *back); //读取首部
     char* stableReadInfo(int back_len);//读取信息
-private:
-
-
 public:
     void setModelGoods     (QStandardItemModel &mode,Goods *good,int line);
     void setModelStore     (QStandardItemModel &mode,Store *store,int line);
@@ -62,18 +59,24 @@ public:
     void setModelLine      (QStandardItemModel &mode,int line);
     void setModelSoldCe    (QStandardItemModel &mode,Goods *good,int line);
 private:
-    pair<char*,int> readExp(int per_size);
-private:
-    QStandardItemModel model_ShowAll;
-    QStandardItemModel model_Find;
-    QStandardItemModel model_ShowAllStore;
-    QStandardItemModel model_Cls;
-    QStandardItemModel model_SailCensus;
-    QStandardItemModel model_EarlyWarn;
+    pair<char*,int>         readExp(int per_size);
+    bool                    cmpPointOut(string type,int leftval);
 
+private:
+    QStandardItemModel      model_ShowAll;
+    QStandardItemModel      model_Find;
+    QStandardItemModel      model_ShowAllStore;
+    QStandardItemModel      model_Cls;
+    QStandardItemModel      model_SailCensus;
+    QStandardItemModel      model_EarlyWarn;
+    map<string,int>         m_pointout;
 private:
     Ui::ChargeView *ui;
     shared_ptr<SockClient> client;
 };
-
+struct SalItemRetBack
+{
+    int  left_qua=0;
+    char arry[20]{0};
+};
 #endif // CHARGEVIEW_H

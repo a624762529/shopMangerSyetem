@@ -7,7 +7,6 @@ ShopActSql::ShopActSql(string db_name)
     //打开数据库
     if( !m_db_act.open() ) //数据库打开失败
     {
-        //QMessageBox::warning(this, "错误", db.lastError().text());
         cout<<"open error"<<endl;
     }
 }
@@ -123,24 +122,25 @@ void ShopActSql::sendBackType()
 void ShopActSql::sendBackStore()
 {}
 
-pair<int,int> ShopActSql::getVal(QString sql)
+Tg ShopActSql::getVal(QString sql)
 {
-    pair<int,int> ret_back;
-    ret_back.first=-1;
-    ret_back.second=-1;
+    Tg tg;
     QSqlQuery query;
     if(query.exec(sql))
     {
         while(query.next())
         {
-            ret_back.first =query.value(0).
+            tg.qua=query.value(0).
                     toString().toInt();
-            ret_back.second=query.value(1).
+            tg.price =query.value(1).
                     toString().toInt();
-            return ret_back;
+            string type=query.value(2).
+                    toString().toStdString();
+            memcpy( tg.type,type.c_str(),type.size());
+            return tg;
         }
     }
-    return ret_back;
+    return tg;
 }
 
 //查找对应的物品

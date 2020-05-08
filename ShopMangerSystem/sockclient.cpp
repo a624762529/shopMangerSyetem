@@ -117,6 +117,8 @@ int SockClient::readInfo(char *buf,int len)
     lock_guard<mutex> lock(mu);
     sleep(0.1);
     int ret=read(cfd,buf,len);
+
+    cout<<"read length:"<<ret<<endl;
     if(ret<0)
     {
         if(errno!=EAGAIN)

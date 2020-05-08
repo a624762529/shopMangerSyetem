@@ -30,24 +30,56 @@ void Logon::on_pushButton_log_clicked()
     else
     {
        //发送给服务端
-        Login sendlog(count,password);
-        client->writeInfo((char *)&sendlog,sizeof(sendlog));
-        SendBack *back=reinterpret_cast<SendBack *>(new char[4096]);
-
-        client->readInfo(reinterpret_cast<char*>(back),4096);
-        if(back->m_tag)
+        if(ui->radioButton_charger->isChecked())
         {
-            QMessageBox::information(NULL, "success", "注册成功",
-                                     QMessageBox::Yes | QMessageBox::No,
-                                     QMessageBox::Yes);
+            cout<<"管理员注册"<<endl;
+            Login sendlog(count,password);
+            client->writeInfo((char *)&sendlog,sizeof(sendlog));
+            SendBack *back=reinterpret_cast<SendBack *>(new char[4096]);
+
+            client->readInfo(reinterpret_cast<char*>(back),4096);
+            if(back->m_tag)
+            {
+                QMessageBox::information(NULL, "success", "注册成功",
+                                         QMessageBox::Yes | QMessageBox::No,
+                                         QMessageBox::Yes);
+            }
+            else
+            {
+                QMessageBox::information(NULL, "注册失败", "用户名相同",
+                                         QMessageBox::Yes | QMessageBox::No,
+                                         QMessageBox::Yes);
+            }
+            delete []back;
+        }
+        else if(ui->radioButton_solder->isChecked())
+        {
+            cout<<"销售员注册"<<endl;
+            SolderLogin sendlog(count,password);
+            client->writeInfo((char *)&sendlog,sizeof(sendlog));
+            SendBack *back=reinterpret_cast<SendBack *>(new char[4096]);
+
+            client->readInfo(reinterpret_cast<char*>(back),4096);
+            if(back->m_tag)
+            {
+                QMessageBox::information(NULL, "success", "注册成功",
+                                         QMessageBox::Yes | QMessageBox::No,
+                                         QMessageBox::Yes);
+            }
+            else
+            {
+                QMessageBox::information(NULL, "注册失败", "用户名相同",
+                                         QMessageBox::Yes | QMessageBox::No,
+                                         QMessageBox::Yes);
+            }
+            delete []back;
         }
         else
         {
-            QMessageBox::information(NULL, "注册失败", "用户名相同",
-                                     QMessageBox::Yes | QMessageBox::No,
+            QMessageBox::information(NULL, "load fail", "选择身份",
+                                     QMessageBox::Yes,
                                      QMessageBox::Yes);
         }
-        delete []back;
      }
 
 }

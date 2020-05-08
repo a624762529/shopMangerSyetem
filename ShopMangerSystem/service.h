@@ -4,15 +4,22 @@
 
 #include<iostream>
 using namespace std;
-
+extern string user_name;
+extern string status;
 struct SendBack
+{
+    int m_len=0;  //信息长度
+    int m_num=0;  //数据的数目
+    bool m_tag=0; //sql语句是否执行成功
+    char m_ch=0;  //数据内容
+};
+
+struct SendBackz
 {
     int m_len;  //信息长度
     int m_num;  //数据的数目
     bool m_tag; //sql语句是否执行成功
-    char m_ch;  //数据内容
 };
-
 struct Store
 {
 public:
@@ -51,20 +58,26 @@ public:
       //补货           查询       管理仓库      销售统计
         deletegoods,changegoods,clsgoods,addgoods,Load, Login,salItem,earlyWarn,
       //删除商品      改变商品     分类统计  增加商品   登录   注册  销售商品 预警
-        showStoreAll
-      //展示全部的商品
+        showStoreAll,solderLoad,solderLogin
+      //展示全部的商品  销售员登录   销售员注册
     };
     SendPackImpl()
     {
         m_send_type=-1;
         m_info_len=-1;
+        memcpy(m_username,user_name.c_str(),user_name.size());
+        memcpy(m_status,status.c_str(),status.size());
     }
     SendPackImpl(int type)
     {
         m_send_type=type;
         m_info_len=-1;
+        memcpy(m_username,user_name.c_str(),user_name.size());
+        memcpy(m_status,status.c_str(),status.size());
     }
 public:
+    char m_username[20]{0};
+    char m_status[20]{0};
     int m_send_type;//发送类型
     int m_info_len; //信息的长度
 };
@@ -368,6 +381,60 @@ public:
     }
 private:
     char m_store[20]{0};
-   int  m_val;
+    int  m_val;
 };
+
+
+
+class SolderLoad:public SendPackImpl
+{
+public:
+    //登录
+    SolderLoad():
+        SendPackImpl(SendPackImpl::solderLoad)
+    {
+         m_info_len=sizeof(SolderLoad);
+         memset(&info,0,sizeof(info));
+    }
+    void setInfo(string count,string password)
+    {
+        memset(&info,0,sizeof(info));
+        memcpy(info.password,count.c_str(),count.size());
+        memcpy(info.user_name,password.c_str(),password.size());
+        m_info_len=sizeof(SolderLoad);
+    }
+
+public:
+    UserLoadInfo info;
+};
+
+class SolderLogin:public SendPackImpl
+{
+public:
+    //注册
+    SolderLogin():
+        SendPackImpl(SendPackImpl::solderLogin)
+    {
+        memset(&info,0,sizeof(info));
+        m_info_len=sizeof(SolderLogin);
+    }
+
+    SolderLogin(string count,string password):
+        SendPackImpl(SendPackImpl::solderLogin)
+    {
+        memset(&info,0,sizeof(info));
+        m_info_len=sizeof(SolderLogin);
+        setInfo(count,password);
+    }
+
+    void setInfo(string count,string password)
+    {
+        memset(&info,0,sizeof(info));
+        memcpy(info.password,count.c_str(),count.size());
+        memcpy(info.user_name,password.c_str(),password.size());
+    }
+public:
+    UserLoadInfo info;
+};
+
 #endif // SERVICE_H

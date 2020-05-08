@@ -5,6 +5,7 @@
 #include<thread>
 #include<signal.h>
 #include<sys/signal.h>
+
 using namespace std;
 class SockClient
 {
@@ -12,13 +13,14 @@ public:
     SockClient();
     ~SockClient();
     SockClient(string ip,int prot);
-    int  readInfo(char *buf,int len);
-    int  writeInfo(char *buf,int len);
-    void setIp(string ip);
-    void setProt(int prot);
-    void destory();
-    int  connectToHost();
-    int  stableRecv(char *buf,int len);
+    int   readInfo(char *buf,int len);
+    int   writeInfo(char *buf,int len);
+    void  setIp(string ip);
+    void  setProt(int prot);
+    void  destory();
+    int   connectToHost();
+    int   stableRecv(char *buf,int len);
+
 private:
 
     int createSocket(string ip,int prot);

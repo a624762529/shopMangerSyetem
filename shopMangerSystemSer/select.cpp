@@ -183,7 +183,10 @@ void Select::readCallBack(int cfd)
             return;
         }
         it->second.m_buf.addInfo(buf,len,getAllLen);
-
+        if(it->second.m_buf.getReadLen()>=sizeof(SendPackImpl))
+        {
+            it->second.m_buf.setAllLen();
+        }
         if(it->second.m_buf.jude_readOver())
         {
             char *get_ready_read=it->second.m_buf.getInfo();
@@ -285,6 +288,7 @@ void Select::doWrite
         {
             free(send_back);                   //删除send
             changeFdRead(cfd);
+
         }
     }
 }

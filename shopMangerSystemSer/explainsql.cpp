@@ -68,6 +68,7 @@ SendBack* ExplainSql_::explain(char *msg,int len)
     SendPackImpl *type=reinterpret_cast<SendPackImpl *>(msg);
     switch (type->m_send_type)
     {
+    //展示所有的仓库
     case SendPackImpl::showStoreAll:
     {
         ShowStoreAll *sho=reinterpret_cast<ShowStoreAll *>(msg);
@@ -75,34 +76,42 @@ SendBack* ExplainSql_::explain(char *msg,int len)
         return m_db.selectDB(sho->explain(),5);
         break;
     }
+    //销售商品
     case SendPackImpl::salItem:
     {
         //商品的销售
-        SendBack* ret1=getSendBack();
-
-
+        SendBack* back=reinterpret_cast<SendBack*>(malloc(sizeof(SalItemRetBack)
+                                                         +sizeof(SendBack)));
+        memset(back,0,sizeof(SalItemRetBack)+sizeof(SendBack));
+        back->m_len=sizeof(SendBack)+sizeof(SalItemRetBack);
+        back->m_num=0;
+        back->m_tag=false;
         SalItem *item=reinterpret_cast<SalItem*>(msg);
-        pair<int,int> retv=m_db.getVal(item->getVal());
-        if(retv.first<0)
+        //retv中的数据 第一个val是数目 第二个是价格
+        Tg retv=m_db.getVal(item->getVal());
+        if(retv.qua<0)
         {
-            return ret1;
+            return back;
         }
-
-        item->m_sal.m_price=retv.second;
+        //获取对方的类型
+        item->m_sal.m_price=retv.price;
         log.addinfo(item->getLogInfo());
 
-        auto ret=item->explain(retv.second);
+        SalItemRetBack *bk=reinterpret_cast
+                <SalItemRetBack*>(&back->m_ch);
+        auto ret=item->explain(retv.qua);
         if(m_db.doSql(ret.first))
         {
             if(m_db.doSql(ret.second))
             {
-                ret1->m_tag=true;
-                ret1->m_len+=3;
-                memcpy(&ret1->m_ch,&retv.first,4);
+                back->m_tag=true;
+                bk->left_qua=retv.qua;
+                memcpy(bk->arry,retv.type,
+                        sizeof(retv.type)-1);
+                cout<<(char*)bk->arry<<endl;
             }
         }
-
-        return ret1;
+        return back;
         break;
     }
     case SendPackImpl::addgoods:
@@ -178,9 +187,12 @@ SendBack* ExplainSql_::explain(char *msg,int len)
         DeleteGoods *del=reinterpret_cast<DeleteGoods*>(msg);
         log.addinfo(del->getLogInfo());
         SendBack* ret_back=getSendBack();
-        pair<int,int> ret_find=m_db.getVal(del->getVal());
+        Tg ret_find=m_db.getVal(del->getVal());
+        pair<int,int> retv;
+        retv.first=ret_find.qua;
+        retv.second=ret_find.price;
         //item_price,item_qua
-        auto ret= del->explain(ret_find);
+        auto ret= del->explain(retv);
         if(m_db.doSql(ret.first))
         {
             if(m_db.doSql(ret.second))
@@ -211,6 +223,25 @@ SendBack* ExplainSql_::explain(char *msg,int len)
         return ret_back;
         break;
     }
+    case SendPackImpl::solderLoad:
+    {
+        SolderLoad *load=reinterpret_cast<SolderLoad*>(msg);
+        SendBack* ret_back=getSendBack();
+        log.addinfo(load->getLogInfo());
+        bool ret=m_db.selectDB(load->explain());
+        ret_back->m_tag=ret;
+        return ret_back;
+    }
+    case SendPackImpl::solderLogin:
+    {
+        SolderLogin *logv=reinterpret_cast<SolderLogin*>(msg);
+        SendBack* ret_back=getSendBack();
+        log.addinfo(logv->getLogInfo());
+        bool ret=m_db.doSql(logv->explain());
+        ret_back->m_tag=ret;
+        return ret_back;
+        break;
+    }
     case SendPackImpl::Login:
     {
         Login *logv=reinterpret_cast<Login*>(msg);
@@ -233,7 +264,9 @@ SendBack* ExplainSql_::explain(char *msg,int len)
         EarlyWarning *earlywarn=reinterpret_cast<EarlyWarning *>(msg);
         log.addinfo(earlywarn->getLogInfo());
         return m_db.earlyWarning(earlywarn->explain(),4);
+        break;
     }
+
     }
     return  NULL;
 }

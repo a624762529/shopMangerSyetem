@@ -26,10 +26,10 @@ public:
     SendBack* selectDB(string sql_lag,int arg);
     vector<string> readType();
     vector<string> readStore();
-    void sendBackType();
-    void sendBackStore();
+    void    sendBackType();
+    void    sendBackStore();
     QString Transform(QString info);
-    pair<int,int> getVal(QString sql);
+    Tg      getVal(QString sql);
 public:
     SendBack* searchItem  (string sql_lag,int arg);
     SendBack* getAllStore (string sql_lag,int arg);

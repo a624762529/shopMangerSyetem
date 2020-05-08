@@ -9,6 +9,30 @@ ChargeView::ChargeView(QWidget *parent) :
 
     //ui->addItem->setToolTip(QString("进货"));
     setTableViewHead();
+
+    m_pointout.insert(pair<string,int>("零食",30));
+    m_pointout.insert(pair<string,int>("书籍",30));
+    m_pointout.insert(pair<string,int>("蔬菜",30));
+    m_pointout.insert(pair<string,int>("水果",3));
+    m_pointout.insert(pair<string,int>("饮料",30));
+    m_pointout.insert(pair<string,int>("烟",30));
+}
+
+bool ChargeView::cmpPointOut(string type,int leftval)
+{
+    auto ret=m_pointout.find(type);
+    if(ret==m_pointout.end())
+    {
+        return !(leftval<40);
+    }
+    if(ret->second>leftval)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
 ChargeView::~ChargeView()
@@ -64,13 +88,11 @@ void ChargeView::on_salButton_clicked()
     if(ret==QMessageBox::Yes)
     {
         string goods_name=ui->sal_name->text().toStdString();
-        int goods_qua=ui->sal_qua->text().toInt();
+        int    goods_qua=ui->sal_qua->text().toInt();
         string goods_store= ui->sal_store->text().toStdString();
-        // Goods
 
         Goods good;
         memset(&good,0,sizeof(good));
-
         good.setGoods(goods_name,-1
                       ,goods_qua,goods_store,"");
 
@@ -78,24 +100,19 @@ void ChargeView::on_salButton_clicked()
         //使用阻塞式的写入操作
         client->writeInfo(reinterpret_cast<char*>(&item),sizeof(item));
 
-        /////////////////
-        //        char buf[102];
-        //        SendBack *back=reinterpret_cast<SendBack*>(buf);
-        //        this->stableReadHead(back);
-        /////////////////
-        char buf[64*1024];
-        int ret=client->readInfo(buf,64*4096);
-        if(ret==-1)
-        {
-            perror("read error");
-        }
-        SendBack *back=reinterpret_cast<SendBack*>(buf);
+        //读取首部信息
+        int len_head=sizeof(SendBack)-3;
+        char*head=stableReadInfo(len_head);
+        SendBack*back=reinterpret_cast<SendBack*>(head);
+        int message_len=back->m_len-len_head;
+        char*info=stableReadInfo(message_len);
+
         if(back->m_tag)
         {
-            //char *info=this->stableReadInfo(4);
-            //int leftover=*(int *)(info) - goods_qua;
-            int leftover=*(int *)(&back->m_ch) - goods_qua;
-            if(leftover>40)
+            SalItemRetBack *data=reinterpret_cast<SalItemRetBack *>
+                    (info);
+            int leftover=data->left_qua - goods_qua;
+            if(cmpPointOut((char*)data->arry,leftover))
             {
                 QMessageBox::question(NULL, "sail success", "交易成功",
                                       QMessageBox::Yes , QMessageBox::Yes);
@@ -106,16 +123,16 @@ void ChargeView::on_salButton_clicked()
                 QMessageBox::question(NULL,"WARNING",info,
                                       QMessageBox::Yes , QMessageBox::Yes);
             }
-            //free(info);
             return;
         }
         else
         {
 
-            QMessageBox::question(NULL, "sail fail", "交易失败",
+                 QMessageBox::question(NULL, "sail fail", "交易失败",
                                   QMessageBox::Yes , QMessageBox::Yes);
         }
-
+        free(head);
+        free(info);
     }
 }
 
@@ -135,19 +152,19 @@ void ChargeView::on_pushButton_deleteting_clicked()
         string del_name=ui->delete_item_name->text().toStdString();
         Goods good;
         memset(&good,0,sizeof(good));
-        //setGoods(string name,int price,int qua,string store,string type)
         good.setGoods(del_name,-1,-1,del_store,"");
         DeleteGoods del(good);
-
         client->writeInfo(reinterpret_cast<char*>(&del),sizeof(del));
 
-        char buf[64*4096];
-        int ret=client->readInfo(buf,64*4096);
-        if(ret==-1)
-        {
-            perror("read error");
-        }
-        SendBack *back=reinterpret_cast<SendBack*>(buf);
+
+        int len_head=sizeof(SendBack)-3;
+        char*head=stableReadInfo(len_head);
+        SendBack*back=reinterpret_cast<SendBack*>(head);
+        int message_len=back->m_len-len_head;
+        char*info=stableReadInfo(message_len);
+
+
+
         if(back->m_tag)
         {
             QMessageBox::information(NULL, "删除商品成功", "success",
@@ -158,6 +175,9 @@ void ChargeView::on_pushButton_deleteting_clicked()
             QMessageBox::information(NULL, "删除商品失败", "fail",
                                      QMessageBox::Yes, QMessageBox::Yes);
         }
+
+        free(head);
+        free(info);
     }
 }
 
@@ -187,13 +207,12 @@ void ChargeView::on_pushButton_change_clicked()
         //讲参数包发送给服务端
         client->writeInfo(reinterpret_cast<char*>(&chg_goods),sizeof(chg_goods));
 
-        char buf[64*1024];
-        int ret=client->readInfo(buf,64*4096);
-        if(ret==-1)
-        {
-            perror("read error");
-        }
-        SendBack *back=reinterpret_cast<SendBack*>(buf);
+        int len_head=sizeof(SendBack)-3;
+        char*head=stableReadInfo(len_head);
+        SendBack*back=reinterpret_cast<SendBack*>(head);
+        int message_len=back->m_len-len_head;
+        char*info=stableReadInfo(message_len);
+
         if(back->m_tag)
         {
             QMessageBox::information(NULL, "修改成功", "success",
@@ -204,6 +223,8 @@ void ChargeView::on_pushButton_change_clicked()
             QMessageBox::information(NULL, "修改失败", "fail",
                                      QMessageBox::Yes, QMessageBox::Yes);
         }
+
+        free(info);free(head);
     }
 }
 
@@ -227,13 +248,12 @@ void ChargeView::on_pushButton_addInfo_clicked()
         AddGoods add(addItem);
         client->writeInfo(reinterpret_cast<char*>(&add),sizeof(add));
 
-        char buf[64*1024];
-        int ret=client->readInfo(buf,4096);
-        if(ret==-1)
-        {
-            perror("read error");
-        }
-        SendBack *back=reinterpret_cast<SendBack*>(buf);
+        int len_head=sizeof(SendBack)-3;
+        char*head=stableReadInfo(len_head);
+        SendBack*back=reinterpret_cast<SendBack*>(head);
+        int message_len=back->m_len-len_head;
+        char*info=stableReadInfo(message_len);
+
         if(back->m_tag)
         {
             QMessageBox::information(NULL, "增加商品成功", "success",
@@ -244,6 +264,8 @@ void ChargeView::on_pushButton_addInfo_clicked()
             QMessageBox::information(NULL, "增加商品失败", "fail",
                                      QMessageBox::Yes, QMessageBox::Yes);
         }
+        free(head);
+        free(info);
     }
 }
 
@@ -259,16 +281,17 @@ void ChargeView::on_find_button_clicked()
     Find fd_sd(goods);
     client->writeInfo(reinterpret_cast<char*>(&fd_sd),sizeof(fd_sd));
 
-    char buf[64*1024];
-    int ret=client->readInfo(buf,64*4096);
-    if(ret==-1)
-    {
-        perror("read error");
-    }
-    SendBack *back=reinterpret_cast<SendBack*>(buf);
+    int len_head=sizeof(SendBack)-3;
+    char*head=stableReadInfo(len_head);
+    SendBack*back=reinterpret_cast<SendBack*>(head);
+    int message_len=back->m_len-len_head;
+    char*info=stableReadInfo(message_len);
+
+
+
     if(back&&back->m_tag)
     {
-        Goods *good=reinterpret_cast<Goods*>(&back->m_ch);
+        Goods *good=reinterpret_cast<Goods*>(info);
         int line=back->m_num;
         setModelLine(model_Find,line);
         for(int i=0;i<line;i++)
@@ -285,6 +308,8 @@ void ChargeView::on_find_button_clicked()
                                  QMessageBox::Yes);
 
     }
+    free(head);
+    free(info);
 }
 
 //调货
@@ -316,13 +341,12 @@ void ChargeView::on_pushButton_2_clicked()
     Replenish req(from_good,to_good);
     client->writeInfo(reinterpret_cast<char*>(&req),sizeof(req));
 
-    char buf[64*1024];
-    int ret=client->readInfo(buf,64*4096);
-    if(ret==-1)
-    {
-        perror("read error");
-    }
-    SendBack *back=reinterpret_cast<SendBack*>(buf);
+    int len_head=sizeof(SendBack)-3;
+    char*head=stableReadInfo(len_head);
+    SendBack*back=reinterpret_cast<SendBack*>(head);
+    int message_len=back->m_len-len_head;
+    char*info=stableReadInfo(message_len);
+
     if(back->m_tag)
     {
         QMessageBox::information(NULL, "调货成功", "success",
@@ -333,6 +357,8 @@ void ChargeView::on_pushButton_2_clicked()
         QMessageBox::information(NULL, "调货失败", "fail",
                                  QMessageBox::Yes, QMessageBox::Yes);
     }
+    free(head);
+    free(info);
     }
 }
 
@@ -341,16 +367,16 @@ void ChargeView::on_button_showstr_clicked()
 {
     FindAll fdall;
     client->writeInfo(reinterpret_cast<char*>(&fdall),sizeof(fdall));
-    char buf[64*1024];
-    int ret=client->readInfo(buf,64*4096);
-    if(ret==-1)
-    {
-        perror("read error");
-    }
-    SendBack *back=reinterpret_cast<SendBack*>(buf);
+
+    int len_head=sizeof(SendBack)-3;
+    char*head=stableReadInfo(len_head);
+    SendBack*back=reinterpret_cast<SendBack*>(head);
+    int message_len=back->m_len-len_head;
+    char*info=stableReadInfo(message_len);
+
     if(back->m_tag)
     {
-        Store *store=reinterpret_cast<Store*>(&back->m_ch);
+        Store *store=reinterpret_cast<Store*>(info);
         int line=back->m_num;
         setModelLine(model_ShowAllStore,line);
         for(int i=0;i<line;i++)
@@ -361,8 +387,10 @@ void ChargeView::on_button_showstr_clicked()
     }
     else
     {
-        ui->show_store->setText(QString("没有仓库"));
+        QMessageBox::question(NULL, "err", "没有仓库",
+                              QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
     }
+    free(head);free(info);
 }
 
 //删除仓库
@@ -376,13 +404,12 @@ void ChargeView::on_pushButton_clicked()
         de_store.setStore(del_store);
         client->writeInfo(reinterpret_cast<char*>(&de_store),sizeof(de_store));
 
-        char buf[64*1024];
-        int ret=client->readInfo(buf,64*4096);
-        if(ret==-1)
-        {
-            perror("read error");
-        }
-        SendBack *back=reinterpret_cast<SendBack*>(buf);
+        int len_head=sizeof(SendBack)-3;
+        char*head=stableReadInfo(len_head);
+        SendBack*back=reinterpret_cast<SendBack*>(head);
+        int message_len=back->m_len-len_head;
+        char*info=stableReadInfo(message_len);
+
         if(back->m_tag)
         {
             QMessageBox::information(NULL, "删除仓库成功", "success",
@@ -393,6 +420,8 @@ void ChargeView::on_pushButton_clicked()
             QMessageBox::information(NULL, "删除仓库失败", "fail",
                                      QMessageBox::Yes, QMessageBox::Yes);
         }
+
+        free(head);free(info);
     }
 }
 
@@ -407,13 +436,12 @@ void ChargeView::on_pushButton_addStre_clicked()
         add_store.setStore(ad_store_name);
 
         client->writeInfo(reinterpret_cast<char*>(&add_store),sizeof(add_store));
-        char buf[64*1024];
-        int ret=client->readInfo(buf,64*4096);
-        if(ret==-1)
-        {
-            perror("read error");
-        }
-        SendBack *back=reinterpret_cast<SendBack*>(buf);
+
+        int len_head=sizeof(SendBack)-3;
+        char*head=stableReadInfo(len_head);
+        SendBack*back=reinterpret_cast<SendBack*>(head);
+        int message_len=back->m_len-len_head;
+        char*info=stableReadInfo(message_len);
         if(back->m_tag)
         {
             QMessageBox::information(NULL, "增加仓库成功", "success",
@@ -424,6 +452,7 @@ void ChargeView::on_pushButton_addStre_clicked()
             QMessageBox::information(NULL, "增加仓库失败", "fail",
                                      QMessageBox::Yes, QMessageBox::Yes);
         }
+        free(head);free(info);
     }
 }
 
@@ -436,18 +465,16 @@ void ChargeView::on_butt_SalAll_clicked()
     cls.setStore(store);
 
     client->writeInfo(reinterpret_cast<char*>(&cls),sizeof(cls));
-    char buf[64*1024];
-    int ret=client->readInfo(buf,64*4096);
-    if(ret==-1)
-    {
-        perror("read error");
-    }
-    SendBack *back=reinterpret_cast<SendBack*>(buf);
+
+    int len_head=sizeof(SendBack)-3;
+    char*head=stableReadInfo(len_head);
+    SendBack*back=reinterpret_cast<SendBack*>(head);
+    int message_len=back->m_len-len_head;
+    char*info=stableReadInfo(message_len);
+
     if(back->m_tag)
     {
-        //ui->showSalAll->setText(&back->m_ch);
-
-        RetCls *cls= reinterpret_cast<RetCls*> (&back->m_ch);
+        RetCls *cls= reinterpret_cast<RetCls*> (info);
         int line=back->m_num;
         setModelLine(model_Cls,line);
         for(int i=0;i<line;i++)
@@ -461,6 +488,7 @@ void ChargeView::on_butt_SalAll_clicked()
         QMessageBox::information(NULL, "仓库没有东西", "无",
                                  QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
     }
+    free(head);free(info);
 }
 void func_gettimer(char *local_time)
 {
@@ -510,13 +538,12 @@ void ChargeView::on_buttonClassSalar_clicked()
     soil.setData(data);
     client->writeInfo(reinterpret_cast<char*>(&soil),sizeof(soil));
 
-    char buf[64*1024];
-    int ret=client->readInfo(buf,64*4096);
-    if(ret==-1)
-    {
-        perror("read error");
-    }
-    SendBack *back=reinterpret_cast<SendBack*>(buf);
+    int len_head=sizeof(SendBack)-3;
+    char*head=stableReadInfo(len_head);
+    SendBack*back=reinterpret_cast<SendBack*>(head);
+    int message_len=back->m_len-len_head;
+    char*info=stableReadInfo(message_len);
+
     int all_sail=0;
 
     char arry[20]{0};
@@ -531,7 +558,7 @@ void ChargeView::on_buttonClassSalar_clicked()
 
     if(back->m_tag)
     {
-        Goods *good=reinterpret_cast<Goods*>(&back->m_ch);
+        Goods *good=reinterpret_cast<Goods*>(info);
         int line=back->m_num;
         setModelLine(model_SailCensus,line);
 
@@ -562,6 +589,7 @@ void ChargeView::on_buttonClassSalar_clicked()
         QMessageBox::information(NULL, "今天没有销售货物", "无",
                                  QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
     }
+    free(head);free(info);
 }
 
 //销售预警
@@ -573,16 +601,16 @@ void ChargeView::on_buttonEarlyWarn_clicked()
     warn.setStore(store,num);
 
     client->writeInfo(reinterpret_cast<char*>(&warn),sizeof(warn));
-    char buf[64*1024];
-    int ret=client->readInfo(buf,64*4096);
-    if(ret==-1)
-    {
-        perror("read error");
-    }
-    SendBack *back=reinterpret_cast<SendBack*>(buf);
+
+    int len_head=sizeof(SendBack)-3;
+    char*head=stableReadInfo(len_head);
+    SendBack*back=reinterpret_cast<SendBack*>(head);
+    int message_len=back->m_len-len_head;
+    char*info=stableReadInfo(message_len);
+
     if(back->m_tag)
     {
-        Goods *good=reinterpret_cast<Goods*>(&back->m_ch);
+        Goods *good=reinterpret_cast<Goods*>(info);
         int line=back->m_num;
         setModelLine(model_EarlyWarn,line);
         for(int i=0;i<line;i++)
@@ -596,8 +624,8 @@ void ChargeView::on_buttonEarlyWarn_clicked()
         //ui->showWarm->setText("no warning");
         QMessageBox::information(NULL, "没有预警", "无",
                                  QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-
     }
+    free(head);free(info);
 }
 
 
@@ -612,41 +640,15 @@ void ChargeView::on_buttonClassSalar_2_clicked()
     sw.setStore(store);
     client->writeInfo(reinterpret_cast<char*>(&sw),sizeof(sw));
 
-////////////////
-//    SendBack backv;
-//    this->stableReadHead(&backv);
-//    if(backv.m_tag)
-//    {
-//        //获取数据长度
-//        int info_len=back->m_len;
-//        auto ret=stableReadInfo(info_len,sizeof(Goods));
+    int len_head=sizeof(SendBack)-3;
+    char*head=stableReadInfo(len_head);
+    SendBack*back=reinterpret_cast<SendBack*>(head);
+    int message_len=back->m_len-len_head;
+    char*info=stableReadInfo(message_len);
 
-//        Goods *good=reinterpret_cast<Goods*>(&ret.first);
-//        int line=backv->m_num;
-//        setModelLine(model_ShowAll,line);
-//        for(int i=0;i<line;i++)
-//        {
-//            setModelGoods(model_ShowAll,good,i);
-//            good++;
-//        }
-//    }
-//    else
-//    {
-//        QMessageBox::information(NULL, "find fail", "仓库不存在|没有数据",
-//                                 QMessageBox::Yes | QMessageBox::No,
-//                                 QMessageBox::Yes);
-//    }
-////////////////
-    char buf[64*4096];
-    int ret=client->readInfo(buf,64*4096);
-    if(ret==-1)
-    {
-        perror("read error");
-    }
-    SendBack *back=reinterpret_cast<SendBack*>(buf);
     if(back->m_tag)
     {
-        Goods *good=reinterpret_cast<Goods*>(&back->m_ch);
+        Goods *good=reinterpret_cast<Goods*>(info);
         int line=back->m_num;
         setModelLine(model_ShowAll,line);
         for(int i=0;i<line;i++)
@@ -661,6 +663,7 @@ void ChargeView::on_buttonClassSalar_2_clicked()
                                  QMessageBox::Yes | QMessageBox::No,
                                  QMessageBox::Yes);
     }
+    free(head);free(info);
 }
 
 void ChargeView::setModelGoods(QStandardItemModel &mode,Goods *good,int line)
@@ -728,8 +731,11 @@ void ChargeView::stableReadHead(SendBack *back)
     }
     else
     {
-        client->stableRecv
-                (reinterpret_cast<char*>(back),sizeof(SendBack)-1);
+        int len1=sizeof(SendBack);
+        int len=sizeof(SendBack)-1;
+        int ret=client->stableRecv
+                (reinterpret_cast<char*>(back),len);
+        cout<<ret<<endl;
     }
 }
 
@@ -739,4 +745,20 @@ char* ChargeView::stableReadInfo(int back_len)
     //读取错误  吐出异常  程序直接挂掉
     client->stableRecv(info_buf,back_len);
     return info_buf;
+}
+
+
+void ChargeView::solderLoad()
+{
+
+    ui->toolBox_3->removeItem(2);
+    ui->toolBox_3->removeItem(2);
+    ui->toolBox_3->removeItem(2);
+    ui->toolBox_3->removeItem(3);
+    ui->toolBox_3->removeItem(3);
+    ui->toolBox_3->removeItem(3);
+    ui->toolBox_3->removeItem(3);
+
+    ui->toolBox_2->hide();
+    ui->ChargeStore->hide();
 }

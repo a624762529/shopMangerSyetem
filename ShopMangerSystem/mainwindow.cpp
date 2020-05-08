@@ -32,24 +32,31 @@ MainWindow::MainWindow(QWidget *parent) :
 //注册页面显示
     m_log.setSendSer(client);
 //   m_log.show();
-
-
     connect(&m_load,&LoadView::load,[=]()
                                     {
                                         m_chargeViw.show();
                                         m_load.hide();
                                     }
             );
+
     connect(&m_load,&LoadView::logon,[=]()
                                     {
                                         m_log.show();
                                         m_load.hide();
                                     }
             );
+
     connect(&m_log,&Logon::logonSuccess,[=]()
                                     {
                                         m_log.hide();
                                         m_load.show();
+                                    }
+            );
+
+    connect(&m_load,&LoadView::sig_SolderLoad,[=]()
+                                    {
+
+                                        m_chargeViw.solderLoad();
                                     }
             );
 }

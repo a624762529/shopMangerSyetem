@@ -17,6 +17,12 @@ struct SendBack
     char m_ch;  //数据内容
 };
 
+struct Tg
+{
+    int price=-1;
+    int qua=-1;
+    char type[20]{0};
+};
 
 struct Store
 {
@@ -53,9 +59,9 @@ public:
     enum{
         replenish,   find,     charge_store,soldcensus,
       //补货           查询       管理仓库      销售统计
-        deletegoods,changegoods,clsgoods,addgoods,Load, Login,salItem,earlyWarn
+        deletegoods,changegoods,clsgoods,addgoods,Load, Login,salItem,earlyWarn,
       //删除商品      改变商品     分类统计  增加商品   登录   注册  售卖商品
-        ,showStoreAll
+        showStoreAll,solderLoad,solderLogin
       //展示全部的商品
     };
     SendPackImpl()
@@ -69,6 +75,8 @@ public:
         m_info_len=-1;
     }
 public:
+    char m_username[20]{0};
+    char m_status[20]{0};
     int m_send_type;//发送类型
     int m_info_len; //信息的长度
 };
@@ -118,7 +126,7 @@ public:
     }
     QString getVal()
     {
-        QString sql_get=QString("select item_qua,item_price from %1 where item_name='%2'").
+        QString sql_get=QString("select item_qua,item_price,item_type from %1 where item_name='%2'").
                 arg(m_sal.m_store,m_sal.m_name);
         return sql_get;
     }
@@ -126,13 +134,17 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string addinfo=(char *)arry+string("salItem: 仓库名")+m_sal.m_store+
-                string("销售的物品名:")+m_sal.m_name+
-                string("数目")+to_string(m_sal.m_qua)+
-                string("价格")+to_string(m_sal.m_price);
+        string addinfo=(char *)arry+
+                string("用户名:")+m_username+
+                "身份"+m_status+
+                string("salItem: 仓库名")+m_sal.m_store+
+                string("销售的物品名:")   +m_sal.m_name+
+                string("数目")           +to_string(m_sal.m_qua)+
+                string("价格")           +to_string(m_sal.m_price);
         addinfo.push_back('\n');
         return addinfo;
     }
+
 public:
     Goods m_sal;
 };
@@ -161,7 +173,8 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string addinfo=(char *)arry+string("show table:")+m_store;
+        string addinfo=(char *)arry+ string("用户名:")+m_username+
+                "身份"+m_status+string("show table:")+m_store;
         addinfo.push_back('\n');
         return addinfo;
     }
@@ -174,7 +187,6 @@ public:
 class Replenish:public SendPackImpl
 {
 public:
-
     Replenish (const Goods &from,const Goods &to)
         :SendPackImpl(SendPackImpl::replenish)
     {
@@ -231,7 +243,10 @@ public:
         gettime_now(arry);
 
         string addinfo=
-                string(arry)+string("Replenish--->")+
+                string(arry)+
+                string("用户名:")+m_username+
+                "身份"+m_status+
+                string("Replenish--->")+
                 "from:"+m_from.m_store+
                 "  to:"+m_to.m_store  +
                 " name:"+m_from.m_name+
@@ -264,9 +279,11 @@ public:
     {
         char arry[20]={0};
         gettime_now(arry);
-        string add=string(arry)+"find:--->"
-                +"name:"+m_to.m_name
-                +"store"+m_to.m_store;
+        string add=string(arry)+
+                string("用户名:")+m_username+
+                "身份"+m_status+"find:--->"+
+                "name:"+m_to.m_name+
+                "store"+m_to.m_store;
         add.push_back('\n');
         return add;
     }
@@ -325,8 +342,11 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string add_info=string(arry)+"delete store:----->"
-                        +store_name;
+        string add_info=string(arry) +
+                string("用户名:")+m_username+
+                "身份"+m_status+"delete store:----->"+
+
+                        store_name;
         add_info.push_back('\n');
         return add_info;
     }
@@ -351,7 +371,8 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string add_info=string(arry)+"findAll store:----->";
+        string add_info=string(arry)+ string("用户名:")+m_username+
+                "身份"+m_status+"findAll store:----->";
         add_info.push_back('\n');
         return add_info;
     }
@@ -385,7 +406,8 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string add_info=string(arry)+"create store:----->"
+        string add_info=string(arry)+string("用户名:")+m_username+
+                "身份"+m_status+"create store:----->"
                         +store_name;
         add_info.push_back('\n');
         return add_info;
@@ -421,7 +443,8 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string add_info=string(arry)+"sold   census:----->"
+        string add_info=string(arry)+string("用户名:")+m_username+
+                "身份"+m_status+"sold   census:----->"
                         +"time:"+arry;
         add_info.push_back('\n');
         return add_info;
@@ -474,7 +497,8 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string add_info=string(arry)+"delete item:----->"
+        string add_info=string(arry)+string("用户名:")+m_username+
+                "身份"+m_status+"delete item:----->"
                         +"store:"+m_delete.m_type
                         +"name: "+m_delete.m_name;
         add_info.push_back('\n');
@@ -517,7 +541,8 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string add_info=string(arry)+"ChangeGoods:----->"
+        string add_info=string(arry)+string("用户名:")+m_username+
+                "身份"+m_status+"ChangeGoods:----->"
                         +"name:"+m_from.m_name;
         add_info.push_back('\n');
         return add_info;
@@ -555,7 +580,8 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string add_info=string(arry)+"ClsGoods:----->"
+        string add_info=string(arry)+string("用户名:")+m_username+
+                "身份"+m_status+"ClsGoods:----->"
                         +"store:"+store_name;
         add_info.push_back('\n');
         return add_info;
@@ -590,7 +616,8 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string add_info=string(arry)+"AddGoods:----->"
+        string add_info=string(arry)+string("用户名:")+m_username+
+                "身份"+m_status+"AddGoods:----->"
                         +"store:"+m_add.m_store
                         +"name:"+m_add.m_name;
         add_info.push_back('\n');
@@ -636,6 +663,90 @@ public:
     UserLoadInfo info;
 };
 
+
+class SolderLoad:public SendPackImpl
+{
+public:
+    //登录
+    SolderLoad():
+        SendPackImpl(SendPackImpl::solderLoad)
+    {
+         m_info_len=sizeof(SolderLoad);
+    }
+    void setInfo(string count,string password)
+    {
+        memcpy(info.password,count.c_str(),count.size());
+        memcpy(info.user_name,password.c_str(),password.size());
+    }
+    string explain()
+    {
+        //user_name, cipher
+        QString sql=QString("select * from Solder where user_name='%1'and "
+                            "cipher='%2'").
+                arg(info.user_name,info.password);
+        return sql.toStdString();
+    }
+    string getLogInfo()
+    {
+        char arry[20]{0};
+        gettime_now(arry);
+        string add_info=string(arry)+string("用户名:")+m_username+
+                "身份"+m_status+"load:----->"
+                        +"user:"+info.user_name;
+        add_info.push_back('\n');
+        return add_info;
+    }
+public:
+    UserLoadInfo info;
+};
+
+class SolderLogin:public SendPackImpl
+{
+public:
+    //注册
+    SolderLogin():
+        SendPackImpl(SendPackImpl::solderLogin)
+    {
+        memset(&info,0,sizeof(info));
+        m_info_len=sizeof(Login);
+    }
+
+    SolderLogin(string count,string password):
+        SendPackImpl(SendPackImpl::Login)
+    {
+        memset(&info,0,sizeof(info));
+        m_info_len=sizeof(Login);
+        setInfo(count,password);
+    }
+
+    void setInfo(string count,string password)
+    {
+        memcpy(info.password,count.c_str(),count.size());
+        memcpy(info.user_name,password.c_str(),password.size());
+    }
+public:
+    string explain()
+    {
+        QString sql=QString("insert into Solder(user_name, cipher)"
+                    " values('%1', '%2')")
+                .arg(info.user_name,info.password);
+        return sql.toStdString();
+    }
+    string getLogInfo()
+    {
+        char arry[20]{0};
+        gettime_now(arry);
+        string add_info=string(arry)+string("用户名:")+m_username+
+                "身份"+m_status+"Login:----->"
+                        +"user:"+info.user_name;
+        add_info.push_back('\n');
+        return add_info;
+    }
+public:
+    UserLoadInfo info;
+};
+
+
 class Login:public SendPackImpl
 {
 public:
@@ -672,7 +783,8 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string add_info=string(arry)+"Login:----->"
+        string add_info=string(arry)+string("用户名:")+m_username+
+                "身份"+m_status+"Login:----->"
                         +"user:"+info.user_name;
         add_info.push_back('\n');
         return add_info;
@@ -715,7 +827,8 @@ public:
     {
         char arry[20]{0};
         gettime_now(arry);
-        string add_info=string(arry)+"early warning:----->"
+        string add_info=string(arry)+string("用户名:")+m_username+
+                "身份"+m_status+"early warning:----->"
                         +"user:"+m_store
                         +"warn_num:"+to_string(m_val);
         add_info.push_back('\n');

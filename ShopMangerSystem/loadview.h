@@ -19,6 +19,7 @@ public:
     void setSendSer(shared_ptr<SockClient>);
 signals:
     void load();
+    void sig_SolderLoad();
     void logon();
 private slots:
     void on_pushButton_clicked();

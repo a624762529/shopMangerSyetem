@@ -19,8 +19,8 @@ int main()
 }
 
 
-//测试与数据库的通讯
-int main234qwwe56()
+
+int main12312()
 {
     //增加用户表
     ShopActSql mylit("./info.db");
@@ -42,6 +42,40 @@ int main234qwwe56()
         cout<<"insert error"<<endl;
     }
     QString sql=QString("select * from user where user_name='%1'and cipher='%2'").
+                                                            arg("1239999","123999");
+    string showtab="select * from user;";
+
+    if(!mylit.selectDB(showtab))
+    {
+        cout<<"show error"<<endl;
+    }
+
+    return 1;
+}
+
+
+int main123()
+{
+    //增加用户表
+    ShopActSql mylit("./info.db");
+
+    string createTable="create table Solder(user_name varchar(20) primary key,"
+                             " cipher varchar(20))";
+
+
+    if(!mylit.doSql(createTable))
+    {
+        cout<<"create error"<<endl;
+    }
+
+
+    string insertValue="insert into Solder(user_name, cipher)"
+                       " values('123', '123')";
+    if(!mylit.doSql(insertValue))
+    {
+        cout<<"insert error"<<endl;
+    }
+    QString sql=QString("select * from Solder where user_name='%1'and cipher='%2'").
                                                             arg("1239999","123999");
     string showtab="select * from user;";
 
@@ -308,7 +342,7 @@ int main2345()
 
 
 
-int main2334545()
+int main12323235()
 {
     ShopActSql mylit("./info.db");
     string createTable="create table DelTable(store     varchar(20) ,"
@@ -367,3 +401,4 @@ int main2334545()
 
     return 1;
 }
+

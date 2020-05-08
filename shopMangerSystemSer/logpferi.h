@@ -7,7 +7,7 @@
 using namespace std;
 #define MAGIC 11
 #define FILEMAX 50  //每个文件最大大小是50M
-#define INFOMAX 50//每条信息最大大小的4096
+#define INFOMAX 50  //每条信息最大大小的4096
 
 class InfoTag :public TubeImple
 {
