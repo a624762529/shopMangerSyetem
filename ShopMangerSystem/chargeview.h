@@ -1,20 +1,26 @@
 #ifndef CHARGEVIEW_H
 #define CHARGEVIEW_H
-
-#include <QWidget>
-#include<QString>
 #include<string>
 #include<iostream>
 #include<memory>
+#include<sstream>
+#include<iomanip>
+
+#include<QWidget>
+#include<QColorDialog>
+#include<QColor>
+#include<QString>
 #include<QStandardItemModel>
+#include<QMessageBox>
+#include<QFileDialog>
+#include<QDebug>
+
 #include"sockclient.h"
 #include"good.h"
 #include"service.h"
-#include<QMessageBox>
-#include <QFileDialog>
 #include"file.h"
-#include<sstream>
-#include<iomanip>
+#include"stylesheetcom.h"
+
 using namespace std;
 namespace Ui
 {
@@ -30,6 +36,7 @@ public:
 public:
     void setSendSer(shared_ptr<SockClient> cli);
     void solderLoad();
+    void setUserInfo();
 private slots:
     void on_salButton_clicked();            //商品的销售
     void on_pushButton_deleteting_clicked();//删除商品
@@ -46,11 +53,22 @@ private slots:
     void on_buttonClassSalar_2_clicked();   //查询该仓库的全部商品
     void on_pushButton_3_clicked();
     void on_pushButton_4_clicked();
+    void on_pushButton_5_clicked();
+    void on_goodsCharge_2_clicked();
+    void on_storeCharge_clicked();
+    void on_button_set_font_clicked();
+    void on_button_set_color_clicked();
+    void on_button_set_bord_color_clicked();
+    void on_button_set_border_width_clicked();
+    void on_button_set_font_color_clicked();
+    void on_buttob_set_font_color_clicked();
+    void on_button_set_redius_clicked();
 private:
     void setTableViewHead();
+    void setBackGround(QString pic_patth);
 private:
-    void  stableReadHead(SendBack *back); //读取首部
-    char* stableReadInfo(int back_len);//读取信息
+    void  stableReadHead(SendBack *back);    //读取首部
+    char* stableReadInfo(int back_len);      //读取信息
 public:
     void setModelGoods     (QStandardItemModel &mode,Goods *good,int line);
     void setModelStore     (QStandardItemModel &mode,Store *store,int line);
@@ -71,8 +89,10 @@ private:
     QStandardItemModel      model_EarlyWarn;
     map<string,int>         m_pointout;
 private:
-    Ui::ChargeView *ui;
-    shared_ptr<SockClient> client;
+    Ui::ChargeView         *ui;
+    shared_ptr<SockClient>  client;
+private:
+    StyleSheetCom           com;
 };
 struct SalItemRetBack
 {

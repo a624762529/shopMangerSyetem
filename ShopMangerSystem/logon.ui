@@ -6,97 +6,37 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>444</width>
-    <height>398</height>
+    <width>462</width>
+    <height>403</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="pushButton_log">
+  <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>250</y>
-     <width>80</width>
-     <height>26</height>
+     <x>0</x>
+     <y>0</y>
+     <width>471</width>
+     <height>401</height>
     </rect>
    </property>
    <property name="text">
-    <string>logon</string>
+    <string/>
    </property>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>80</y>
-     <width>171</width>
-     <height>28</height>
-    </rect>
+   <property name="pixmap">
+    <pixmap>../build-ShopMangerSystem-unknown-Debug/pic/background.jpeg</pixmap>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>账号：</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit_count"/>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>130</y>
-     <width>171</width>
-     <height>28</height>
-    </rect>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
-    <item>
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>密码：</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit_password"/>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>180</y>
-     <width>171</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
-    <item>
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>重新输入密码</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit_rpassword"/>
-    </item>
-   </layout>
   </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>300</y>
+     <x>310</x>
+     <y>270</y>
      <width>80</width>
      <height>26</height>
     </rect>
@@ -105,11 +45,11 @@
     <string>返回</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget_4">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>230</y>
+     <x>120</x>
+     <y>200</y>
      <width>130</width>
      <height>26</height>
     </rect>
@@ -128,6 +68,97 @@
        <string>管理员</string>
       </property>
      </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="pushButton_log">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>220</y>
+     <width>80</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>logon</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>80</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>../build-ShopMangerSystem-unknown-Debug/pic/username.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>110</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>../build-ShopMangerSystem-unknown-Debug/pic/password.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>140</y>
+     <width>72</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>../build-ShopMangerSystem-unknown-Debug/pic/33.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>80</y>
+     <width>251</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLineEdit" name="lineEdit_count"/>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="lineEdit_password"/>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="lineEdit_rpassword"/>
     </item>
    </layout>
   </widget>

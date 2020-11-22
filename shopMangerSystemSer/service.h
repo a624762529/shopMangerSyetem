@@ -4,7 +4,7 @@
 #include"goods.h"
 #include<QString>
 #include<iostream>
-
+#include<logpferi.h>
 using namespace std;
 
 void gettime_now(char *cur_time);
@@ -133,7 +133,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string addinfo=(char *)arry+
                 string("用户名:")+m_username+
                 "身份"+m_status+
@@ -172,7 +172,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string addinfo=(char *)arry+ string("用户名:")+m_username+
                 "身份"+m_status+string("show table:")+m_store;
         addinfo.push_back('\n');
@@ -240,7 +240,7 @@ public:
     {
         char arry[20];
         memset(arry,0,sizeof(arry));
-        gettime_now(arry);
+        logpferI::gettime(arry);
 
         string addinfo=
                 string(arry)+
@@ -278,7 +278,7 @@ public:
     string getLogInfo()
     {
         char arry[20]={0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add=string(arry)+
                 string("用户名:")+m_username+
                 "身份"+m_status+"find:--->"+
@@ -341,7 +341,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry) +
                 string("用户名:")+m_username+
                 "身份"+m_status+"delete store:----->"+
@@ -370,7 +370,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+ string("用户名:")+m_username+
                 "身份"+m_status+"findAll store:----->";
         add_info.push_back('\n');
@@ -405,7 +405,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+string("用户名:")+m_username+
                 "身份"+m_status+"create store:----->"
                         +store_name;
@@ -442,7 +442,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+string("用户名:")+m_username+
                 "身份"+m_status+"sold   census:----->"
                         +"time:"+arry;
@@ -496,7 +496,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+string("用户名:")+m_username+
                 "身份"+m_status+"delete item:----->"
                         +"store:"+m_delete.m_type
@@ -540,7 +540,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+string("用户名:")+m_username+
                 "身份"+m_status+"ChangeGoods:----->"
                         +"name:"+m_from.m_name;
@@ -579,7 +579,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+string("用户名:")+m_username+
                 "身份"+m_status+"ClsGoods:----->"
                         +"store:"+store_name;
@@ -615,7 +615,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+string("用户名:")+m_username+
                 "身份"+m_status+"AddGoods:----->"
                         +"store:"+m_add.m_store
@@ -653,7 +653,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+"load:----->"
                         +"user:"+info.user_name;
         add_info.push_back('\n');
@@ -689,7 +689,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+string("用户名:")+m_username+
                 "身份"+m_status+"load:----->"
                         +"user:"+info.user_name;
@@ -735,7 +735,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+string("用户名:")+m_username+
                 "身份"+m_status+"Login:----->"
                         +"user:"+info.user_name;
@@ -782,7 +782,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+string("用户名:")+m_username+
                 "身份"+m_status+"Login:----->"
                         +"user:"+info.user_name;
@@ -826,7 +826,7 @@ public:
     string getLogInfo()
     {
         char arry[20]{0};
-        gettime_now(arry);
+        logpferI::gettime(arry);
         string add_info=string(arry)+string("用户名:")+m_username+
                 "身份"+m_status+"early warning:----->"
                         +"user:"+m_store

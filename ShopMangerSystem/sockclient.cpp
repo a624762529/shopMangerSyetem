@@ -62,6 +62,7 @@ int SockClient::connectToSer()
         setsockopt(cfd,SOL_SOCKET,
                           SO_REUSEADDR|SO_REUSEPORT,
                           &opt,sizeof(int));
+        setBlock();
         return 1;
     }
     if(con)
@@ -209,10 +210,7 @@ void SockClient::startAlarm()
     signal(SIGPIPE,SIG_IGN);
     while (m_starAlarm)
     {
-        {
-            lock_guard<mutex> lock(mu);
-            send(cfd,"a",1,MSG_OOB);
-        }
+        send(cfd,"a",1,MSG_OOB);
         sleep(4);
     }
 }

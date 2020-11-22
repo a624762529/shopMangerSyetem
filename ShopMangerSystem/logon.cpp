@@ -8,6 +8,12 @@ Logon::Logon(QWidget *parent) :
     ui->setupUi(this);
     ui->lineEdit_password->setEchoMode(QLineEdit::Password);
     ui->lineEdit_rpassword->setEchoMode(QLineEdit::Password);
+    setWindowTitle("注册");
+    setWindowFlags(Qt::FramelessWindowHint|windowFlags());
+
+    setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);
+    setFixedSize(this->width(), this->height());
+
 }
 
 Logon::~Logon()
@@ -18,7 +24,21 @@ Logon::~Logon()
 void Logon::on_pushButton_log_clicked()
 {
     string count    = ui->lineEdit_count->text().toStdString();
+    if(count.size()==0)
+    {
+        QMessageBox::information(NULL, "error", "没有输入账号",
+                                 QMessageBox::Yes | QMessageBox::No,
+                                 QMessageBox::Yes);
+        return;
+    }
     string password = ui->lineEdit_password->text().toStdString();
+    if(password.size()==0)
+    {
+        QMessageBox::information(NULL, "error", "没有输入密码",
+                                 QMessageBox::Yes | QMessageBox::No,
+                                 QMessageBox::Yes);
+        return;
+    }
     string rpassword= ui->lineEdit_rpassword->text().toStdString();
 
     if(password!=rpassword)
@@ -26,6 +46,7 @@ void Logon::on_pushButton_log_clicked()
         QMessageBox::information(NULL, "error", "前后两次密码输入不一致",
                                  QMessageBox::Yes | QMessageBox::No,
                                  QMessageBox::Yes);
+        return;
     }
     else
     {
@@ -43,12 +64,14 @@ void Logon::on_pushButton_log_clicked()
                 QMessageBox::information(NULL, "success", "注册成功",
                                          QMessageBox::Yes | QMessageBox::No,
                                          QMessageBox::Yes);
+                return;
             }
             else
             {
                 QMessageBox::information(NULL, "注册失败", "用户名相同",
                                          QMessageBox::Yes | QMessageBox::No,
                                          QMessageBox::Yes);
+                return;
             }
             delete []back;
         }
@@ -65,12 +88,14 @@ void Logon::on_pushButton_log_clicked()
                 QMessageBox::information(NULL, "success", "注册成功",
                                          QMessageBox::Yes | QMessageBox::No,
                                          QMessageBox::Yes);
+                return;
             }
             else
             {
                 QMessageBox::information(NULL, "注册失败", "用户名相同",
                                          QMessageBox::Yes | QMessageBox::No,
                                          QMessageBox::Yes);
+                return;
             }
             delete []back;
         }
@@ -79,6 +104,7 @@ void Logon::on_pushButton_log_clicked()
             QMessageBox::information(NULL, "load fail", "选择身份",
                                      QMessageBox::Yes,
                                      QMessageBox::Yes);
+            return;
         }
      }
 

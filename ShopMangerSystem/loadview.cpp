@@ -7,6 +7,10 @@ LoadView::LoadView(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->lineEdit_password->setEchoMode(QLineEdit::Password);
+    setWindowTitle("登录");
+    setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);
+    setFixedSize(this->width(), this->height());
+
 }
 
 LoadView::~LoadView()
@@ -18,7 +22,20 @@ void LoadView::on_pushButton_clicked()
 {
     string count= ui->lineEdit_count->text().toStdString();
     string password= ui->lineEdit_password->text().toStdString();
-
+    if(count.size()==0)
+    {
+        QMessageBox::information(NULL, "load fail", "账号没输入",
+                                 QMessageBox::Yes,
+                                 QMessageBox::Yes);
+        return;
+    }
+    else if(password.size()==0)
+    {
+        QMessageBox::information(NULL, "load fail", "密码没有输入",
+                                 QMessageBox::Yes,
+                                 QMessageBox::Yes);
+        return;
+    }
     if(ui->radioButton_charger->isChecked())
     {
         Load load;
@@ -71,13 +88,13 @@ void LoadView::on_pushButton_clicked()
         return;
     }
     user_name=count;
+    emit loadSuccess();
 }
 
 void LoadView::setSendSer(shared_ptr<SockClient> cli)
 {
     this->cli=cli;
 }
-
 
 //注册
 void LoadView::on_pushButton_2_clicked()

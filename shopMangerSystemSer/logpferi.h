@@ -6,8 +6,8 @@
 #include<memory>
 using namespace std;
 #define MAGIC 11
-#define FILEMAX 50  //每个文件最大大小是50M
-#define INFOMAX 50  //每条信息最大大小的4096
+#define FILEMAX 50    //每个文件最大大小是50M
+#define INFOMAX 30    //每条信息最大大小的4096
 
 class InfoTag :public TubeImple
 {
@@ -51,13 +51,13 @@ public:
     logpferI();
     void    setPath(string path);
     void    start();
+    static void    gettime(char *cur_time);
 public:
     void    setCanUsed();
     void    stop();
 private:
     void    startConsumer();
     int     getFileSize();
-    void    gettime(char *cur_time);
     string  compareFileName();
     void    change_file();
 private:

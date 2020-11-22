@@ -6,1172 +6,1234 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>846</width>
-    <height>702</height>
+    <width>890</width>
+    <height>555</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QToolBox" name="toolBox">
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>880</y>
+     <width>82</width>
+     <height>113</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>商品管理</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="goodsCharge_2">
+      <property name="text">
+       <string>商品管理</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="storeCharge">
+      <property name="text">
+       <string>仓库管理</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>0</y>
-     <width>861</width>
-     <height>661</height>
+     <y>50</y>
+     <width>821</width>
+     <height>449</height>
     </rect>
    </property>
-   <property name="cursor">
-    <cursorShape>SizeVerCursor</cursorShape>
-   </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
-   <widget class="QWidget" name="page">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>861</width>
-      <height>597</height>
-     </rect>
-    </property>
-    <attribute name="label">
-     <string>商品的管理</string>
+   <widget class="QWidget" name="tab_13">
+    <attribute name="title">
+     <string>商品管理</string>
     </attribute>
-    <widget class="QToolBox" name="toolBox_3">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>0</y>
-       <width>801</width>
-       <height>531</height>
-      </rect>
-     </property>
-     <property name="currentIndex">
-      <number>1</number>
-     </property>
-     <widget class="QWidget" name="page_findall">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>801</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>查看仓库的全部商品</string>
-      </attribute>
-      <widget class="QTableView" name="tableViewShowAll">
-       <property name="geometry">
-        <rect>
-         <x>90</x>
-         <y>50</y>
-         <width>401</width>
-         <height>161</height>
-        </rect>
+    <layout class="QHBoxLayout" name="horizontalLayout_13">
+     <item>
+      <widget class="QTabWidget" name="goodsChargeWagat">
+       <property name="maximumSize">
+        <size>
+         <width>900</width>
+         <height>400</height>
+        </size>
        </property>
-      </widget>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>90</x>
-         <y>10</y>
-         <width>391</width>
-         <height>31</height>
-        </rect>
+       <property name="currentIndex">
+        <number>9</number>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QLabel" name="label_22">
-          <property name="text">
-           <string>仓库名：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="lineEdit_Showstore"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="buttonClassSalar_2">
-          <property name="text">
-           <string>show</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="page_search">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>801</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>查询</string>
-      </attribute>
-      <widget class="QTableView" name="tableViewFind">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>40</y>
-         <width>401</width>
-         <height>171</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>68</x>
-         <y>0</y>
-         <width>491</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string> 商品的名字：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="search_name"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>仓库的名字：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="search_store"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="find_button">
-          <property name="text">
-           <string>find</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="page_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>801</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>增加商品</string>
-      </attribute>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>0</y>
-         <width>371</width>
-         <height>221</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="3" column="1" colspan="2">
-         <widget class="QComboBox" name="add_itemtype">
-          <item>
-           <property name="text">
-            <string>饮料</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>水果</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>书籍</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>零食</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>烟酒</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_67">
-          <property name="text">
-           <string>商品名字：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_69">
-          <property name="text">
-           <string>商品类型：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_77">
-          <property name="text">
-           <string>商品价格：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1" colspan="2">
-         <widget class="QLineEdit" name="add_price">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_68">
-          <property name="text">
-           <string>商品数目：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1" colspan="2">
-         <widget class="QLineEdit" name="add_qua"/>
-        </item>
-        <item row="1" column="1" colspan="2">
-         <widget class="QLineEdit" name="add_name"/>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_66">
-          <property name="text">
-           <string>仓库：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" colspan="2">
-         <widget class="QLineEdit" name="add_store"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QPushButton" name="pushButton_addInfo">
-       <property name="geometry">
-        <rect>
-         <x>470</x>
-         <y>100</y>
-         <width>80</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>add</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="page_delete">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>801</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>删除商品</string>
-      </attribute>
-      <widget class="QSplitter" name="splitter">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>30</y>
-         <width>392</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <widget class="QLabel" name="label_62">
-        <property name="text">
-         <string>仓库：</string>
-        </property>
+       <widget class="QWidget" name="tab">
+        <attribute name="title">
+         <string>查询全部商品</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_9">
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEdit_Showstore"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QTableView" name="tableViewShowAll"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_22">
+             <property name="text">
+              <string>仓库名：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="buttonClassSalar_2">
+             <property name="text">
+              <string>show</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
-       <widget class="QLineEdit" name="delete_store"/>
-       <widget class="QLabel" name="label_63">
-        <property name="text">
-         <string>商品名字：</string>
-        </property>
+       <widget class="QWidget" name="cha">
+        <attribute name="title">
+         <string>查询</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string> 商品的名字：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLineEdit" name="search_store"/>
+           </item>
+           <item row="0" column="4">
+            <widget class="QPushButton" name="find_button">
+             <property name="text">
+              <string>find</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="search_name"/>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>仓库的名字：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="5">
+            <widget class="QTableView" name="tableViewFind"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
-       <widget class="QLineEdit" name="delete_item_name"/>
-       <widget class="QPushButton" name="pushButton_deleteting">
-        <property name="text">
-         <string>delete</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
-        </property>
+       <widget class="QWidget" name="tab_3">
+        <attribute name="title">
+         <string>增加商品</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="3" column="1" colspan="2">
+            <widget class="QComboBox" name="add_itemtype">
+             <item>
+              <property name="text">
+               <string>饮料</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>水果</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>书籍</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>零食</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>烟酒</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_67">
+             <property name="text">
+              <string>商品名字：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_69">
+             <property name="text">
+              <string>商品类型：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_77">
+             <property name="text">
+              <string>商品价格：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1" colspan="2">
+            <widget class="QLineEdit" name="add_price">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_68">
+             <property name="text">
+              <string>商品数目：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" colspan="2">
+            <widget class="QLineEdit" name="add_qua"/>
+           </item>
+           <item row="1" column="1" colspan="2">
+            <widget class="QLineEdit" name="add_name"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_66">
+             <property name="text">
+              <string>仓库：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="2">
+            <widget class="QLineEdit" name="add_store"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_addInfo">
+           <property name="text">
+            <string>add</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_4">
+        <attribute name="title">
+         <string>删除商品</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QWidget" name="widget_delete_store" native="true">
+           <layout class="QGridLayout" name="gridLayout_10">
+            <item row="0" column="1">
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>143</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="0">
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>204</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="1">
+             <widget class="QSplitter" name="splitter">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <widget class="QLabel" name="label_62">
+               <property name="text">
+                <string>仓库：</string>
+               </property>
+              </widget>
+              <widget class="QLineEdit" name="delete_store"/>
+              <widget class="QLabel" name="label_63">
+               <property name="text">
+                <string>商品名字：</string>
+               </property>
+              </widget>
+              <widget class="QLineEdit" name="delete_item_name"/>
+              <widget class="QPushButton" name="pushButton_deleteting">
+               <property name="text">
+                <string>delete</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
+               </property>
+              </widget>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>204</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="1">
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>143</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_5">
+        <attribute name="title">
+         <string>改变商品</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>47</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_8">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_71">
+             <property name="text">
+              <string>商品名字：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="2">
+            <widget class="QLineEdit" name="change_name_2">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_72">
+             <property name="text">
+              <string>仓库：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="change_store_2">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>46</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_76">
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap>../build-ShopMangerSystem-unknown-Debug/pic/move.jpg</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>47</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_60">
+             <property name="text">
+              <string>商品价格：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_65">
+             <property name="text">
+              <string>商品数目：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="change_to_qua_2">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_70">
+             <property name="text">
+              <string>商品类型：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="change_to_price_2">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="change_to_name_2">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_57">
+             <property name="text">
+              <string>商品名字：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QComboBox" name="change_itemtype">
+             <item>
+              <property name="text">
+               <string>饮料</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>水果</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>书籍</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>零食</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>烟酒</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>46</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_change">
+           <property name="text">
+            <string>change</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>47</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_6">
+        <attribute name="title">
+         <string>销售商品</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="1" column="3">
+            <widget class="QLineEdit" name="sal_qua">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>仓库名</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QLineEdit" name="sal_store">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>商品数量</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLineEdit" name="sal_name">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="3">
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>商品名字：</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="salButton">
+           <property name="text">
+            <string>sal</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_2">
+        <attribute name="title">
+         <string>补货</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_11">
+         <item row="0" column="2">
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="pack_to_store">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>第几号仓库：</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_7">
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>300</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap>../build-ShopMangerSystem-unknown-Debug/pic/move.jpg</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="0" column="0" colspan="3">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>商品名字：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLineEdit" name="pack_name">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>数目：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_15">
+             <property name="text">
+              <string>类型：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="2">
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>价格：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QLineEdit" name="pack_store">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="3">
+            <widget class="QLabel" name="lable334">
+             <property name="text">
+              <string>第几号仓库：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QLineEdit" name="pack_qua">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QLineEdit" name="pack_price">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="3">
+            <widget class="QComboBox" name="packing_itemtype">
+             <item>
+              <property name="text">
+               <string>饮料</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>水果</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>书籍</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>零食</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>烟酒</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="text">
+            <string>补货</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_7">
+        <attribute name="title">
+         <string>分类统计</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_12">
+         <item row="0" column="0">
+          <widget class="QPushButton" name="butt_SalAll">
+           <property name="text">
+            <string>查询：</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEdit_FindStore"/>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QTableView" name="tableViewCls"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_8">
+        <attribute name="title">
+         <string>销售统计</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_13">
+         <item row="0" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>年：</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_year"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>月：</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_mouth"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_18">
+             <property name="text">
+              <string>日：</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_day"/>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="buttonClassSalar">
+           <property name="text">
+            <string>show</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QTableView" name="tableViewSailCensus"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_9">
+        <attribute name="title">
+         <string>预警查询</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_14">
+         <item row="0" column="0">
+          <widget class="QWidget" name="widget_4" native="true">
+           <layout class="QGridLayout" name="gridLayout_15">
+            <item row="0" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <widget class="QLabel" name="label_19">
+                <property name="text">
+                 <string>仓库名字：</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="line_ed_EarlyWarn"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_20">
+                <property name="text">
+                 <string>库存预警数目：</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="line_ed_EarlyWarnNum"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonEarlyWarn">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>查询</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="0">
+             <widget class="QTableView" name="tableViewEarlyWarn"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
-     </widget>
-     <widget class="QWidget" name="page_change">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>801</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>改变商品</string>
-      </attribute>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>50</y>
-         <width>201</width>
-         <height>81</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_8">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_71">
-          <property name="text">
-           <string>商品名字：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" colspan="2">
-         <widget class="QLineEdit" name="change_name_2">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_72">
-          <property name="text">
-           <string>仓库：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="change_store_2">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QLabel" name="label_76">
-       <property name="geometry">
-        <rect>
-         <x>250</x>
-         <y>80</y>
-         <width>60</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>../build-ShopMangerSystem-unknown-Debug/pic/move.jpg</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QWidget" name="layoutWidget_3">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>10</y>
-         <width>241</width>
-         <height>171</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_6">
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_60">
-          <property name="text">
-           <string>商品价格：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_65">
-          <property name="text">
-           <string>商品数目：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="change_to_qua_2">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_70">
-          <property name="text">
-           <string>商品类型：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="change_to_price_2">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="change_to_name_2">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_57">
-          <property name="text">
-           <string>商品名字：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QComboBox" name="change_itemtype">
-          <item>
-           <property name="text">
-            <string>饮料</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>水果</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>书籍</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>零食</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>烟酒</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QPushButton" name="pushButton_change">
-       <property name="geometry">
-        <rect>
-         <x>610</x>
-         <y>90</y>
-         <width>80</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>change</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="page_sail">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>801</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>销售商品</string>
-      </attribute>
-      <widget class="QPushButton" name="salButton">
-       <property name="geometry">
-        <rect>
-         <x>410</x>
-         <y>70</y>
-         <width>80</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>sal</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
-       </property>
-      </widget>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>30</y>
-         <width>291</width>
-         <height>111</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="1" column="3">
-         <widget class="QLineEdit" name="sal_qua">
-          <property name="text">
-           <string>1</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_14">
-          <property name="text">
-           <string>仓库名</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="QLineEdit" name="sal_store">
-          <property name="text">
-           <string>store1</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QLabel" name="label_11">
-          <property name="text">
-           <string>商品数量</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLineEdit" name="sal_name">
-          <property name="text">
-           <string>雪梨</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="3">
-         <widget class="QLabel" name="label_13">
-          <property name="text">
-           <string>商品名字：</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="page_packing">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>801</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>补货</string>
-      </attribute>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>20</y>
-         <width>221</width>
-         <height>161</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_7">
-        <item row="0" column="0" colspan="3">
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>商品名字：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLineEdit" name="pack_name">
-          <property name="text">
-           <string>可口可乐</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>数目：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>类型：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0" colspan="2">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>价格：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLineEdit" name="pack_store">
-          <property name="text">
-           <string>store1</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="3">
-         <widget class="QLabel" name="lable334">
-          <property name="text">
-           <string>第几号仓库：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="QLineEdit" name="pack_qua">
-          <property name="text">
-           <string>3</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="3">
-         <widget class="QLineEdit" name="pack_price">
-          <property name="text">
-           <string>20</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="3">
-         <widget class="QComboBox" name="packing_itemtype">
-          <item>
-           <property name="text">
-            <string>饮料</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>水果</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>书籍</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>零食</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>烟酒</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QLabel" name="label_7">
-       <property name="geometry">
-        <rect>
-         <x>290</x>
-         <y>50</y>
-         <width>61</width>
-         <height>81</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>../build-ShopMangerSystem-unknown-Debug/pic/move.jpg</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="geometry">
-        <rect>
-         <x>530</x>
-         <y>240</y>
-         <width>80</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>确定调货</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
-       </property>
-      </widget>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>390</x>
-         <y>60</y>
-         <width>221</width>
-         <height>81</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="pack_to_store">
-          <property name="text">
-           <string>store2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>第几号仓库：</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="geometry">
-        <rect>
-         <x>660</x>
-         <y>100</y>
-         <width>80</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>补货</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="page_cls">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>801</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>分类统计</string>
-      </attribute>
-      <widget class="QPushButton" name="butt_SalAll">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>30</y>
-         <width>80</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>查询：</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="lineEdit_FindStore">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>30</y>
-         <width>141</width>
-         <height>31</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QTableView" name="tableViewCls">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>70</y>
-         <width>201</width>
-         <height>141</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="page_sold">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>801</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>销售统计</string>
-      </attribute>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>0</y>
-         <width>261</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>年：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="lineEdit_year"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_17">
-          <property name="text">
-           <string>月：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="lineEdit_mouth"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_18">
-          <property name="text">
-           <string>日：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="lineEdit_day"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QPushButton" name="buttonClassSalar">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>0</y>
-         <width>80</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>show</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
-       </property>
-      </widget>
-      <widget class="QTableView" name="tableViewSailCensus">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>40</y>
-         <width>391</width>
-         <height>171</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="page_earlywarn">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>801</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>预警查询</string>
-      </attribute>
-      <widget class="QTableView" name="tableViewEarlyWarn">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>40</y>
-         <width>401</width>
-         <height>181</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>0</y>
-         <width>466</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <widget class="QLabel" name="label_19">
-          <property name="text">
-           <string>仓库名字：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="line_ed_EarlyWarn"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_20">
-          <property name="text">
-           <string>库存预警数目：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="line_ed_EarlyWarnNum"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="buttonEarlyWarn">
-          <property name="text">
-           <string>查询</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QWidget" name="ChargeStore">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>861</width>
-      <height>597</height>
-     </rect>
-    </property>
-    <attribute name="label">
-     <string>管理仓库</string>
+   <widget class="QWidget" name="tab_14">
+    <attribute name="title">
+     <string>仓库管理</string>
     </attribute>
-    <widget class="QToolBox" name="toolBox_2">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>40</y>
-       <width>721</width>
-       <height>231</height>
-      </rect>
-     </property>
-     <property name="currentIndex">
-      <number>2</number>
-     </property>
-     <widget class="QWidget" name="page_11">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>721</width>
-        <height>135</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>展示全部仓库</string>
-      </attribute>
-      <widget class="QPushButton" name="button_showstr">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>110</y>
-         <width>81</width>
-         <height>21</height>
-        </rect>
+    <layout class="QHBoxLayout" name="horizontalLayout_14">
+     <item>
+      <widget class="QTabWidget" name="storesChargeWagat">
+       <property name="currentIndex">
+        <number>0</number>
        </property>
-       <property name="text">
-        <string>查询</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
-       </property>
+       <widget class="QWidget" name="tab_10">
+        <attribute name="title">
+         <string>查询全部仓库</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <item>
+          <widget class="QTableView" name="tableViewShowAllStore"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="button_showstr">
+           <property name="text">
+            <string>查询</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/find.jpg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_11">
+        <attribute name="title">
+         <string>删除仓库</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>仓库名：</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_delstore"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="text">
+            <string>确认</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_12">
+        <attribute name="title">
+         <string>增加仓库</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>仓库名：</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="line_ed_del_store"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_addStre">
+           <property name="text">
+            <string>add</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
-      <widget class="QTableView" name="tableViewShowAllStore">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>10</y>
-         <width>91</width>
-         <height>121</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="page_9">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>721</width>
-        <height>135</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>删除仓库</string>
-      </attribute>
-      <widget class="QPushButton" name="pushButton">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>80</y>
-         <width>80</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>确认</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
-       </property>
-      </widget>
-      <widget class="QWidget" name="layoutWidget_6">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>80</y>
-         <width>164</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>仓库名：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="lineEdit_delstore"/>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="page_10">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>721</width>
-        <height>135</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>增加仓库</string>
-      </attribute>
-      <widget class="QWidget" name="layoutWidget_7">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>50</y>
-         <width>164</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="label_10">
-          <property name="text">
-           <string>仓库名：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="line_ed_del_store"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QPushButton" name="pushButton_addStre">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>50</y>
-         <width>80</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>add</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</normaloff>../build-ShopMangerSystem-unknown-Debug/pic/ok.jpg</iconset>
-       </property>
-      </widget>
-     </widget>
-    </widget>
+     </item>
+    </layout>
    </widget>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>861</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_17">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_16">
+      <item>
+       <widget class="QLabel" name="label_21">
+        <property name="text">
+         <string>你好:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_8">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QSplitter" name="splitter_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>身份:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_status">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_9">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_15">
+        <item>
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>用户名:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_user">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="text">
+       <string>设置</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="widget_set" native="true">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>300</y>
+     <width>391</width>
+     <height>347</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="button_set_bord_color">
+      <property name="text">
+       <string>设置边框颜色</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="button_set_border_width">
+      <property name="text">
+       <string>设置边框粗细</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="line_edit_border_wdth">
+      <property name="text">
+       <string>0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="button_set_font_color">
+      <property name="text">
+       <string>设置字体颜色</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QFontComboBox" name="fontComboBox"/>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="button_set_redius">
+      <property name="text">
+       <string>设置button弧度</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="lineedit_set_radius"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QPushButton" name="button_set_change_color">
+      <property name="text">
+       <string>设置button渐变开始</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QPushButton" name="button_set_font">
+      <property name="text">
+       <string>设置字体</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="text">
+       <string>PushButton</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QPushButton" name="button_set_color_change_over">
+      <property name="text">
+       <string>设置button渐变结束</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+   <zorder>button_set_font_color</zorder>
+   <zorder>button_set_font</zorder>
+   <zorder>button_set_change_color</zorder>
+   <zorder>button_set_bord_color</zorder>
+   <zorder>button_set_color_change_over</zorder>
+   <zorder>button_set_border_width</zorder>
+   <zorder>pushButton_6</zorder>
+   <zorder>button_set_redius</zorder>
+   <zorder>line_edit_border_wdth</zorder>
+   <zorder>lineedit_set_radius</zorder>
+   <zorder>fontComboBox</zorder>
   </widget>
  </widget>
  <resources/>

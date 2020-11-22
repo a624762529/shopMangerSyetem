@@ -21,6 +21,7 @@ signals:
     void load();
     void sig_SolderLoad();
     void logon();
+    void loadSuccess();
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();

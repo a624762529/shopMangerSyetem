@@ -6,16 +6,29 @@ ChargeView::ChargeView(QWidget *parent) :
     ui(new Ui::ChargeView)
 {
     ui->setupUi(this);
-
-    //ui->addItem->setToolTip(QString("进货"));
     setTableViewHead();
 
-    m_pointout.insert(pair<string,int>("零食",30));
-    m_pointout.insert(pair<string,int>("书籍",30));
-    m_pointout.insert(pair<string,int>("蔬菜",30));
-    m_pointout.insert(pair<string,int>("水果",3));
+    m_pointout.insert(pair<string,int>("零食",10));
+    m_pointout.insert(pair<string,int>("书籍",20));
+    m_pointout.insert(pair<string,int>("蔬菜",20));
+    m_pointout.insert(pair<string,int>("水果",15));
     m_pointout.insert(pair<string,int>("饮料",30));
     m_pointout.insert(pair<string,int>("烟",30));
+    setWindowTitle("管理界面");
+
+    ui->pushButton_2->hide();
+
+    setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);
+    setFixedSize(this->width(), this->height());
+
+    setBackGround("./pic/back_ground_chargeWage.jpg");
+    ui->widget_set->hide();
+}
+
+void ChargeView::setUserInfo()
+{
+    ui->label_status->setText(QString::fromStdString(status));
+    ui->label_user->setText(QString::fromStdString(user_name));
 }
 
 bool ChargeView::cmpPointOut(string type,int leftval)
@@ -162,9 +175,6 @@ void ChargeView::on_pushButton_deleteting_clicked()
         SendBack*back=reinterpret_cast<SendBack*>(head);
         int message_len=back->m_len-len_head;
         char*info=stableReadInfo(message_len);
-
-
-
         if(back->m_tag)
         {
             QMessageBox::information(NULL, "删除商品成功", "success",
@@ -718,6 +728,17 @@ void ChargeView::on_pushButton_3_clicked()
 
 void ChargeView::on_pushButton_4_clicked()
 {
+    static bool tag=true;
+    if(tag==true)
+    {
+        ui->widget_set->show();
+        tag=!tag;
+    }
+    else
+    {
+        ui->widget_set->hide();
+        tag=!tag;
+    }
 }
 
 
@@ -751,14 +772,102 @@ char* ChargeView::stableReadInfo(int back_len)
 void ChargeView::solderLoad()
 {
 
-    ui->toolBox_3->removeItem(2);
-    ui->toolBox_3->removeItem(2);
-    ui->toolBox_3->removeItem(2);
-    ui->toolBox_3->removeItem(3);
-    ui->toolBox_3->removeItem(3);
-    ui->toolBox_3->removeItem(3);
-    ui->toolBox_3->removeItem(3);
+//    ui->toolBox_3->removeItem(2);
+//    ui->toolBox_3->removeItem(2);
+//    ui->toolBox_3->removeItem(2);
+//    ui->toolBox_3->removeItem(3);
+//    ui->toolBox_3->removeItem(3);
+//    ui->toolBox_3->removeItem(3);
+//    ui->toolBox_3->removeItem(3);
 
-    ui->toolBox_2->hide();
-    ui->ChargeStore->hide();
+//    ui->toolBox_2->hide();
+//    ui->ChargeStore->hide();
+//    ui->tableViewShowAll->resize(400,300);
+//    ui->tableViewFind->resize(400,300);
+//    this->resize(600,510);
+//    ui->toolBox_3->resize(600,400);
+}
+
+
+void ChargeView::on_goodsCharge_2_clicked()
+{
+    ui->goodsChargeWagat->show();
+    ui->storesChargeWagat->hide();
+}
+
+void ChargeView::on_storeCharge_clicked()
+{
+    ui->goodsChargeWagat->hide();
+    ui->storesChargeWagat->show();
+}
+
+void ChargeView::setBackGround(QString path)
+{
+    QPixmap pixmap = QPixmap(path).scaled(this->size());
+    QPalette palette(this->palette());
+    palette.setBrush(QPalette::Background, QBrush(pixmap));
+    this->setPalette(palette);
+}
+
+void ChargeView::on_button_set_font_clicked()
+{
+    ui->fontComboBox->currentFont();
+
+}
+
+void ChargeView::on_button_set_color_clicked()
+{
+
+}
+
+void ChargeView::on_button_set_bord_color_clicked()
+{
+    QColorDialog color;              //调出颜色选择器对话框
+    QColor c =   color.getRgba();
+    com.setBorderColor(Rgb(c.red(),c.green(),c.blue()));
+    QString qss=QString("QPushButton{%1;}").arg(com.getQss());
+    this->setStyleSheet(qss);
+    update();
+}
+
+void ChargeView::on_pushButton_5_clicked()
+{
+
+}
+
+void ChargeView::on_button_set_border_width_clicked()
+{
+    int border_width=ui->line_edit_border_wdth->text().toInt();
+    com.setBorderWidth(border_width);
+
+    QString qss=QString("QPushButton{%1;}").arg(com.getQss());
+    this->setStyleSheet(qss);
+    update();
+}
+
+void ChargeView::on_button_set_font_color_clicked()
+{
+    QColorDialog color;              //调出颜色选择器对话框
+    QColor c =   color.getRgba();
+    com.setFontColor(Rgb(c.red(),c.green(),c.blue()));
+    QString qss=QString("QPushButton{%1;}").arg(com.getQss());
+    this->setStyleSheet(qss);
+    update();
+}
+
+
+
+void ChargeView::on_buttob_set_font_color_clicked()
+{
+
+}
+
+void ChargeView::on_button_set_redius_clicked()
+{
+    int border_width=ui->lineedit_set_radius->text().toInt();
+    com.setRedius(border_width);
+
+    QString qss=QString("QPushButton{%1;}").arg(com.getQss());
+    this->setStyleSheet(qss);
+    update();
 }

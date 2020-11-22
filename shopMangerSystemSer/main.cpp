@@ -20,7 +20,7 @@ int main()
 
 
 
-int main12312()
+int main3245()
 {
     //增加用户表
     ShopActSql mylit("./info.db");
@@ -43,7 +43,10 @@ int main12312()
     }
     QString sql=QString("select * from user where user_name='%1'and cipher='%2'").
                                                             arg("1239999","123999");
-    string showtab="select * from user;";
+    string showtab="select user_name as user from user"
+               ;
+
+
 
     if(!mylit.selectDB(showtab))
     {
@@ -54,7 +57,7 @@ int main12312()
 }
 
 
-int main123()
+int ma1243253in()
 {
     //增加用户表
     ShopActSql mylit("./info.db");
@@ -77,7 +80,7 @@ int main123()
     }
     QString sql=QString("select * from Solder where user_name='%1'and cipher='%2'").
                                                             arg("1239999","123999");
-    string showtab="select * from user;";
+    string showtab="select * from Solder;";
 
     if(!mylit.selectDB(showtab))
     {
@@ -94,7 +97,8 @@ int m123456ain()
     ShopActSql mylit("./info.db");
     //建表通过测试
     {
-    string createTable="create  table  goodsItem(item_name  varchar(20) primary key,"
+    string createTable="create  table  goodsItem"
+                                           "(item_name  varchar(20) primary key,"
                                            " item_price int CHECK (item_price>0),"
                                            " item_qua   int CHECK (item_qua>0),"
                                            " item_type  varchar(20) )";

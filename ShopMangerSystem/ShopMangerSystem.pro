@@ -33,7 +33,8 @@ SOURCES += \
     service.cpp \
     sendassis.cpp \
     logon.cpp \
-    file.cpp
+    file.cpp \
+    stylesheetcom.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -45,7 +46,8 @@ HEADERS += \
     service.h \
     sendassis.h \
     logon.h \
-    file.h
+    file.h \
+    stylesheetcom.h
 
 FORMS += \
         mainwindow.ui \

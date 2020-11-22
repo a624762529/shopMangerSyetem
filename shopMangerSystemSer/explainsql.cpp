@@ -81,7 +81,7 @@ SendBack* ExplainSql_::explain(char *msg,int len)
     {
         //商品的销售
         SendBack* back=reinterpret_cast<SendBack*>(malloc(sizeof(SalItemRetBack)
-                                                         +sizeof(SendBack)));
+                                                              +sizeof(SendBack)));
         memset(back,0,sizeof(SalItemRetBack)+sizeof(SendBack));
         back->m_len=sizeof(SendBack)+sizeof(SalItemRetBack);
         back->m_num=0;
@@ -99,7 +99,7 @@ SendBack* ExplainSql_::explain(char *msg,int len)
 
         SalItemRetBack *bk=reinterpret_cast
                 <SalItemRetBack*>(&back->m_ch);
-        auto ret=item->explain(retv.qua);
+        auto ret=item->explain(retv.price);
         if(m_db.doSql(ret.first))
         {
             if(m_db.doSql(ret.second))
@@ -108,7 +108,7 @@ SendBack* ExplainSql_::explain(char *msg,int len)
                 bk->left_qua=retv.qua;
                 memcpy(bk->arry,retv.type,
                         sizeof(retv.type)-1);
-                cout<<(char*)bk->arry<<endl;
+                //cout<<(char*)bk->arry<<endl;
             }
         }
         return back;

@@ -5,7 +5,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    setWindowFlags(Qt::FramelessWindowHint|windowFlags());
     ui->setupUi(this);
+
+    setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);
+    setFixedSize(this->width(), this->height());
+
+
     setWindowTitle("首页");//设置窗口名字
     signal(SIGPIPE,SIG_IGN);
     while (true)
@@ -59,6 +65,10 @@ MainWindow::MainWindow(QWidget *parent) :
                                         m_chargeViw.solderLoad();
                                     }
             );
+    connect(&m_load,&LoadView::loadSuccess,[=]()
+    {
+                                        m_chargeViw.setUserInfo();
+    });
 }
 
 MainWindow::~MainWindow()

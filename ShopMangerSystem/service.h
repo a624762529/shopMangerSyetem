@@ -59,7 +59,7 @@ public:
         deletegoods,changegoods,clsgoods,addgoods,Load, Login,salItem,earlyWarn,
       //删除商品      改变商品     分类统计  增加商品   登录   注册  销售商品 预警
         showStoreAll,solderLoad,solderLogin
-      //展示全部的商品  销售员登录   销售员注册
+      //展示全部的商品  销售员登录   销售员注册   预警
     };
     SendPackImpl()
     {
@@ -430,11 +430,13 @@ public:
     void setInfo(string count,string password)
     {
         memset(&info,0,sizeof(info));
-        memcpy(info.password,count.c_str(),count.size());
-        memcpy(info.user_name,password.c_str(),password.size());
+        memcpy(info.user_name,count.c_str(),count.size());
+        memcpy(info.password,password.c_str(),password.size());
     }
 public:
     UserLoadInfo info;
 };
+
+
 
 #endif // SERVICE_H

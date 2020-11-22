@@ -16,7 +16,7 @@ int Select::createSock(int port)
     // 绑定IP和端口
     bind(lfd, (struct sockaddr*)&serv_addr, serv_len);
     // 设置同时监听的最大个数
-    listen(lfd, 1024);
+    listen(lfd, 99999);
     printf("Start accept ......\n");
     FD_SET(lfd, &m_read);
     addr=serv_addr;
@@ -35,7 +35,7 @@ void Select::spy()
     signal(SIGPIPE,SIG_IGN);
     while (true)
     {
-       // cout<<"并发连接数目:"<<mp.size()<<" :"<<mp_heart.size() <<endl;
+        //cout<<"并发连接数目:"<<mp.size()<<" :"<<mp_heart.size() <<endl;
         sleep(4);
     }
 }
@@ -163,8 +163,8 @@ void Select::readCallBack(int cfd)
     int len = recv(cfd, buf, sizeof(buf), 0);
     if(len == -1)
     {
-        perror("recv error");
-        exit(1);
+        //perror("recv error");
+        //exit(1);
     }
     else if(len == 0)
     {
@@ -192,6 +192,7 @@ void Select::readCallBack(int cfd)
             char *get_ready_read=it->second.m_buf.getInfo();
             auto ret=m_expl.explain(get_ready_read,len);
             //将ret存放到socketbuf中
+
             it->second=SockArry(ret,0);
             changeFdWrite(cfd);
             it->second.m_buf.clear();

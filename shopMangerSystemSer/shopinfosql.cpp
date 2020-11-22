@@ -30,10 +30,16 @@ bool ShopActSql::selectDB(string sql_lag)
     bool ret_tag=false;
     //逐行取出
     QSqlQuery query1;
-    query1.exec(sql_lag.c_str());
+    if(query1.exec(sql_lag.c_str()))
+    {
+        cout<<"sql error"<<endl;
+    }
+
     while(query1.next()) //一行一行遍历
     {
         //取出当前行的内容
+        qDebug()<< query1.value(0).toString()<<"   "<< query1.value(1).toString();
+
         ret_tag=true;
     }
     return ret_tag;
